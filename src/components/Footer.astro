@@ -1,0 +1,49 @@
+---
+// Footer component
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mx-auto max-w-screen-2xl border-t px-4 py-8">
+  <div class="flex flex-row items-center justify-between">
+    <ul>
+      <li>
+        <a
+          class="inline-flex items-center gap-2 hover:underline"
+          href="https://www.linkedin.com/company/snowdonia-studio/"
+        >
+          LinkedIn
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-5"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <ul class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+      <li>
+        <a class="inline-flex items-center gap-2" href="/contact">
+          <span class="link-underline">Contact Us</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a class="inline-flex items-center gap-2" href="/privacy">
+          <span class="link-underline">Privacy Policy</span>
+        </a>
+      </li>
+      <li>
+        <a class="inline-flex items-center gap-2" href="/terms">
+          <span class="link-underline">Terms of Service</span>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+  <p class="pt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+    &copy; {currentYear} Snowdonia Studio. All rights reserved.
+  </p>
+</footer>

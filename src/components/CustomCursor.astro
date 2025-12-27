@@ -1,0 +1,89 @@
+---
+// CustomCursor component
+---
+
+<div id="custom-cursor" class="custom-cursor"></div>
+<div id="cursor-text" class="cursor-text hidden"></div>
+
+<script>
+  // @ts-nocheck
+  let position = { x: 0, y: 0 };
+  let hoverState = null;
+
+  const customCursor = document.getElementById('custom-cursor');
+  const cursorText = document.getElementById('cursor-text');
+
+  function updateCursorPosition(x, y) {
+    position = { x, y };
+    if (customCursor) {
+      customCursor.style.left = `${x}px`;
+      customCursor.style.top = `${y}px`;
+    }
+    if (cursorText && hoverState) {
+      cursorText.style.left = `${x}px`;
+      cursorText.style.top = `${y}px`;
+    }
+  }
+
+  function updateHoverState(state) {
+    hoverState = state;
+    if (customCursor) {
+      if (hoverState) {
+        customCursor.classList.add('hover');
+      } else {
+        customCursor.classList.remove('hover');
+      }
+    }
+    if (cursorText) {
+      if (hoverState && getCursorText()) {
+        cursorText.textContent = getCursorText();
+        cursorText.classList.remove('hidden');
+      } else {
+        cursorText.classList.add('hidden');
+      }
+    }
+  }
+
+  function getCursorText() {
+    if (hoverState === 'contact') return "Let's Chat";
+    if (hoverState === 'slider') return 'Drag';
+    return '';
+  }
+
+  function handleMouseMove(e) {
+    updateCursorPosition(e.clientX, e.clientY);
+  }
+
+  function handleMouseOver(e) {
+    const target = e.target;
+    if (target?.closest('.contact-link')) {
+      updateHoverState('contact');
+    } else if (target?.closest('.slider-container')) {
+      updateHoverState('slider');
+    }
+  }
+
+  function handleMouseOut(e) {
+    const target = e.relatedTarget;
+    if (!target?.closest('.contact-link') && !target?.closest('.slider-container')) {
+      updateHoverState(null);
+    } else if (target?.closest('.contact-link')) {
+      updateHoverState('contact');
+    } else if (target?.closest('.slider-container')) {
+      updateHoverState('slider');
+    }
+  }
+
+  // Initialize when DOM is ready
+  function initCustomCursor() {
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseout', handleMouseOut);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCustomCursor);
+  } else {
+    initCustomCursor();
+  }
+</script>
