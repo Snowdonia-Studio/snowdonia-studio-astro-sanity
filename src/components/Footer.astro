@@ -4,8 +4,25 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="mx-auto max-w-screen-2xl border-t px-4 py-8">
+  <a href="/">
+    <img src="../assets/snowdonia-logo-light.png" alt="Snowdonia Studio" class="h-10 w-10" />
+  </a>
   <div class="flex flex-row items-center justify-between">
     <ul>
+      <li>
+        <a href="/services">Services</a>
+      </li>
+      <li>
+        <a href="/work">Work</a>
+      </li>
+      <li>
+        <a href="/about">About</a>
+      </li>
+      <li>
+        <a href="/contact">Contact</a>
+      </li>
+    </ul>
+    <ul class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
       <li>
         <a
           class="inline-flex items-center gap-2 hover:underline"
@@ -24,23 +41,6 @@ const currentYear = new Date().getFullYear();
           </svg>
         </a>
       </li>
-    </ul>
-    <ul class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
-      <li>
-        <a class="inline-flex items-center gap-2" href="/contact">
-          <span class="link-underline">Contact Us</span>
-        </a>
-      </li>
-      <!-- <li>
-        <a class="inline-flex items-center gap-2" href="/privacy">
-          <span class="link-underline">Privacy Policy</span>
-        </a>
-      </li>
-      <li>
-        <a class="inline-flex items-center gap-2" href="/terms">
-          <span class="link-underline">Terms of Service</span>
-        </a>
-      </li> -->
     </ul>
   </div>
   <p class="pt-4 text-center text-sm text-gray-500 dark:text-gray-400">

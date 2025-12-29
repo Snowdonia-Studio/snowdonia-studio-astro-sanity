@@ -5,7 +5,8 @@ import { blockContentType } from "./blockContent";
 import { categoryType } from "./category";
 import { postType } from "./post";
 import { homepageType } from "./homepage";
+import { serviceType } from "./service";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [authorType, blockContentType, categoryType, postType, homepageType],
+  types: [authorType, blockContentType, categoryType, postType, homepageType, serviceType],
 };

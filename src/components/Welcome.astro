@@ -2,7 +2,7 @@
 import type { SanityDocument } from '@sanity/client';
 import { loadQuery } from '../sanity/lib/load-query';
 import { urlForImage } from '../sanity/lib/url-for-image';
-import ContactForm from './ContactForm.astro';
+import Services from './Services.astro';
 
 interface HomepageSection {
   title?: string;
@@ -103,7 +103,7 @@ const sections = (homepage?.sections || []) as HomepageSection[];
   }
 </div>
 
-<ContactForm />
+<Services />
 
 <style>
   #background {
