@@ -12,7 +12,7 @@ export default defineConfig({
   },
   integrations: [sanity(
     {
-      projectId: 'wlkublm0',
+      projectId: 'tg4v4htd',
       dataset: 'production',
       useCdn: false,
       studioBasePath: '/studio'

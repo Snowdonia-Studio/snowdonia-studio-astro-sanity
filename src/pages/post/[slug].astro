@@ -1,24 +1,56 @@
 ---
-// ./src/pages/post/[slug].astro
-import type { SanityDocument } from '@sanity/client';
 import { loadQuery } from '../../sanity/lib/load-query';
-export async function getStaticPaths() {
-  const { data: posts } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "post"]`,
-  });
-  return posts.map(({ slug }) => {
-    return {
-      params: {
-        slug: slug.current,
-      },
-    };
-  });
+import type { Post } from '../../interfaces/Post.ts';
+import { urlForImage } from '../../sanity/lib/url-for-image';
+
+interface Props {
+  posts: Post[];
 }
-const { params } = Astro;
-const { data: post } = await loadQuery({
-  query: `*[_type == "post" && slug.current == $slug][0]`,
-  params,
-});
+
+export async function getStaticPaths() {
+  const query = `*[_type == "post" && defined(slug.current)]{ _id, slug }`;
+  const { data } = await loadQuery<Post[]>({ query });
+  const posts = (data?.result || []) as Post[];
+
+  return posts.map(post => ({
+    params: { slug: post.slug.current }
+  }));
+}
+
+const { slug } = Astro.params;
+  
+const query = `*[_type == "post" && slug.current == $slug][0]{
+  _id,
+  title,
+  body,
+  publishedAt,
+  mainImage,
+  author->{
+    name, image
+  }
+}`;
+
+const { data } = await loadQuery<Post>({ query, params: { slug } });
 ---
 
-<h1>A post about {post.title}</h1>
+{data ? (
+  // This is boilerplate code for now to get everything working
+  <article>
+    <h1>{data.result.title}</h1>
+      {data?.result?.mainImage?.asset?._ref && (
+        <img
+          src={urlForImage({ asset: { _ref: data?.result?.mainImage?.asset?._ref } }).url()}
+          alt="Background"
+        />
+      )}
+
+    {data.result.author?.name && <p>By {data.result.author.name}</p>}
+    {data.result.publishedAt && <p>{new Date(data.result.publishedAt).toLocaleDateString()}</p>}
+    {data.result.body && (
+      <p>{data.result.body[0]?.children[0]?.text}</p>
+    )}
+
+  </article>
+) : (
+  <p>Post not found.</p>
+)}
