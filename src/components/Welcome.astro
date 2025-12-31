@@ -4,6 +4,7 @@ import { urlForImage } from '../sanity/lib/url-for-image';
 import Services from './Services.astro';
 import type { HomepageSection, HomepageData } from '../interfaces/Homepage.ts';
 import type { Post } from '../interfaces/Post.ts';
+import TEXT from '../constants.js';
 
 const postsQuery = await loadQuery<Post[]>({
   query: `*[_type == "post"]|order(publishedAt desc){
@@ -43,16 +44,17 @@ const homepage = homepageQuery.data.result;
       <img
         src={urlForImage({ asset: { _ref: homepage?.heroImage?.asset._ref } }).url()}
         alt="Background"
+        class="mx-auto max-w-screen-2xl border-t px-4 py-8"
       />
     )
   }
   <main>
-    <section id="hero">
-      <h1 class="text-3xl text-black font-bold">
+    <section id="hero" class="mx-auto max-w-screen-2xl border-t px-4 py-8">
+      <h1 class="text-3xl text-teal-200 font-bold">
         {homepage?.title}
       </h1>
-      {homepage?.subtitle && <h2 class="text-xl text-gray-600 dark:text-gray-400 mt-2">{homepage?.subtitle}</h2>}
-      {homepage?.description && <p class="text-lg mt-4 max-w-2xl">{homepage?.description}</p>}
+      {homepage?.subtitle && <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>}
+      {homepage?.description && <p class="text-lg text-white mt-4 max-w-2xl">{homepage?.description}</p>}
       <section id="links">
         <a class="button" href={homepage?.ctaLink}>{homepage?.ctaText}</a>
       </section>
@@ -77,21 +79,26 @@ const homepage = homepageQuery.data.result;
     </div>
   )}
 
-  <section>
-    <h2>All Posts</h2>
+  <section class="mx-auto max-w-screen-2xl border-t px-4 py-8">
+    <h2 class="text-2xl font-semibold mb-4">{TEXT['OUR_THOUGHTS']}</h2>
     {posts.length > 0 ? (
-      <ul>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {posts.map((post) => (
-          <li>
-            <a href={`/post/${post.slug.current}`}>
-              {post.title}
-            </a>
-            {post.author?.name && (
-              <span> &mdash; {post.author.name}</span>
-            )}
-          </li>
+          <div class="w-full rounded overflow-hidden shadow-lg mx-2">
+            <img class="w-full h-auto" src={post.mainImage ? urlForImage(post.mainImage).url() : ''} alt={post.title} />
+
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">{post.title}</div>
+              <p class="text-white text-base">
+                {post.body?.[0]?.children?.[0]?.text || 'No description available.'}
+              </p>
+              <button class="mt-4 bg-teal-200 text-white font-bold py-2 px-4 rounded">
+                <a href={`/post/${post.slug.current}`}>{TEXT['READ_ARTICLE']}</a>
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     ) : (
       <p>No posts found.</p>
     )}
