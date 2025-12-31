@@ -2,6 +2,7 @@
 import { loadQuery } from '../sanity/lib/load-query';
 import { urlForImage } from '../sanity/lib/url-for-image';
 import Services from './Services.astro';
+import EmblaCarousel from './EmblaCarousel.jsx';
 import type { HomepageSection, HomepageData } from '../interfaces/Homepage.ts';
 import type { Post } from '../interfaces/Post.ts';
 import TEXT from '../constants.js';
@@ -113,8 +114,42 @@ const homepage = homepageQuery.data.result;
     </div>
   )}
 
-  <section class="mx-auto max-w-screen-2xl border-t px-4 py-8">
-    <h2 class="text-2xl font-semibold mb-4">{TEXT['OUR_THOUGHTS']}</h2>
+  <section class="py-10 max-w-screen-2xl">
+    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_PROCESS']}</h2>
+    {(() => {
+      const slides = [
+        {
+          title: 'Kick Off Meeting',
+          description: 'Introductions, an overview of timelines, and next steps are discussed during this meeting.',
+        },
+        {
+          title: 'Discovery',
+          description: 'This is the time when we really dive into what your needs are, create a discovery document that outlines all work that will be done so we have a clear path forward.',
+        },
+        {
+          title: 'Design (optional)',
+          description: 'This is where we create mockups and prototypes for your review and feedback.',
+        },
+        {
+          title: 'Development',
+          description: 'This is where the actual coding and implementation of the project takes place.',
+        },
+        {
+          title: 'Testing',
+          description: 'This is where we thoroughly test the project to ensure everything works as expected.',
+        },
+        {
+          title: 'Launch',
+          description: 'This is when the project goes live and is made available to users.',
+        },
+
+      ];
+      return <EmblaCarousel slides={slides} client:only="react" />;
+    })()}
+  </section>
+
+  <section class="mx-auto max-w-screen-2xl px-4 py-10">
+    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_THOUGHTS']}</h2>
     {posts.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {posts.map((post) => (
