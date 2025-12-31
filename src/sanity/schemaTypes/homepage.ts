@@ -19,6 +19,18 @@ export const homepageType = defineType({
       description: "Subheading or tagline",
     }),
     defineField({
+      name: 'heroVideo',
+      title: 'Hero Video',
+      type: 'file',
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text'
+        }
+      ]
+    }),
+    defineField({
       name: "heroImage",
       type: "image",
       title: "Hero Image",
