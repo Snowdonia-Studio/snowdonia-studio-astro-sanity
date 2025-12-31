@@ -20,7 +20,7 @@ const postsQuery = await loadQuery<Post[]>({
     publishedAt,
     mainImage,
     body
-  }`
+  }`,
 });
 
 const homepageQuery = await loadQuery<HomepageData>({
@@ -45,7 +45,7 @@ const homepageQuery = await loadQuery<HomepageData>({
     ctaText,
     ctaLink,
     sections
-  }`
+  }`,
 });
 
 const posts = postsQuery.data.result;
@@ -54,65 +54,66 @@ const homepage = homepageQuery.data.result;
 
 <div id="container">
   <main>
-    <section id="hero" class="mx-auto max-w-screen-2xl border-t px-4 py-8">
-      <div class="relative w-full h-[400px] overflow-hidden">
-        <video
-          class="absolute top-0 left-0 w-full h-full object-cover"
-          src={homepage?.heroVideo?.asset?.url}
-          autoplay
-          loop
-          muted
-          playsinline
-          preload="auto"
-        ></video>
-        <div class="relative z-10 items-center justify-center">
-          <h1 class="text-3xl text-teal-200 font-bold mb-5">
-            {homepage?.title}
-          </h1>
-          {homepage?.subtitle && <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>}
-          {homepage?.description && <p class="text-lg text-white mt-4 max-w-2xl">{homepage?.description}</p>}
-          <section id="links">
-              <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
-                <a href='/contact' class="inline-flex items-center">{TEXT['LETS_CHAT']}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-9 pl-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-                  ></path>
-                </svg>
-                </a>
-              </button>
-          </section>
-        </div>
+    <section id="hero" class="h-screen">
+      <video
+        class="absolute top-0 left-0 w-full h-full object-cover"
+        src={homepage?.heroVideo?.asset?.url}
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"></video>
+      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+      <div class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-10 mt-20 pt-40">
+        <h1 class="text-teal-200 mb-5">
+          {homepage?.title}
+        </h1>
+        {homepage?.subtitle && <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>}
+        {homepage?.description && <p class="text-lg text-white mt-4 max-w-2xl">{homepage?.description}</p>}
+        <section id="links">
+          <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
+            <a href="/contact" class="inline-flex items-center"
+              >{TEXT['LETS_CHAT']}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-9 pl-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+                ></path>
+              </svg>
+            </a>
+          </button>
+        </section>
       </div>
     </section>
   </main>
 
-  {homepage?.sections && homepage.sections.length > 0 && (
-    <div id="sections" class="sections-container">
-      {homepage.sections.map((section: HomepageSection) => (
-        <div class="section-box">
-          {section.image && (
-            <img
-              src={urlForImage(section.image).width(600).height(400).url()}
-              alt={section.image.alt || section.title || 'Section image'}
-              class="section-image"
-            />
-          )}
-          {section.title && <h2>{section.title}</h2>}
-          {section.content && <p>{section.content}</p>}
-        </div>
-      ))}
-    </div>
-  )}
+  {
+    homepage?.sections && homepage.sections.length > 0 && (
+      <div id="sections" class="sections-container">
+        {homepage.sections.map((section: HomepageSection) => (
+          <div class="section-box">
+            {section.image && (
+              <img
+                src={urlForImage(section.image).width(600).height(400).url()}
+                alt={section.image.alt || section.title || 'Section image'}
+                class="section-image"
+              />
+            )}
+            {section.title && <h2>{section.title}</h2>}
+            {section.content && <p>{section.content}</p>}
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   <section class="py-10 max-w-screen-2xl">
     <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_PROCESS']}</h2>
@@ -172,34 +173,36 @@ const homepage = homepageQuery.data.result;
       <p>No posts found.</p>
     )}
   </section>
-<Services />
+            
 
-<style>
-  #background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    filter: blur(100px);
-    object-fit: cover;
-  }
 
-  #container {
-    font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
+  <section class="mx-auto max-w-screen-2xl border-t px-4 py-8">
+    <h2 class="text-2xl font-semibold mb-4">{TEXT['OUR_THOUGHTS']}</h2>
+    {
+      posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {posts.map((post) => (
+            <div class="w-full rounded overflow-hidden shadow-lg mx-2">
+              <img
+                class="w-full h-auto"
+                src={post.mainImage ? urlForImage(post.mainImage).url() : ''}
+                alt={post.title}
+              />
 
-  main {
-    min-height: calc(100vh - 200px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  * {
-    color: '#000000 !important'
-  }
-</style>
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">{post.title}</div>
+                <p class="text-white text-base">{post.body?.[0]?.children?.[0]?.text || 'No description available.'}</p>
+                <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
+                  <a href={`/post/${post.slug.current}`}>{TEXT['READ_ARTICLE']}</a>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No posts found.</p>
+      )
+    }
+  </section>
+  <Services />
+</div>
