@@ -1,7 +1,6 @@
 ---
 import { loadQuery } from '../sanity/lib/load-query';
 import { urlForImage } from '../sanity/lib/url-for-image';
-import Services from './Services.astro';
 import EmblaCarousel from './EmblaCarousel.jsx';
 import type { HomepageSection, HomepageData } from '../interfaces/Homepage.ts';
 import type { Post } from '../interfaces/Post.ts';
@@ -64,12 +63,12 @@ const homepage = homepageQuery.data.result;
         playsinline
         preload="auto"></video>
       <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-      <div class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-10 mt-20 pt-40">
+      <div class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 mt-20 pt-40">
         <h1 class="text-teal-200 mb-5">
           {homepage?.title}
         </h1>
         {homepage?.subtitle && <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>}
-        {homepage?.description && <p class="text-lg text-white mt-4 max-w-2xl">{homepage?.description}</p>}
+        {homepage?.description && <p class="text-lg text-white mt-4">{homepage?.description}</p>}
         <section id="links">
           <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
             <a href="/contact" class="inline-flex items-center"
@@ -115,67 +114,106 @@ const homepage = homepageQuery.data.result;
     )
   }
 
-  <section class="py-10 max-w-screen-2xl">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_PROCESS']}</h2>
-    {(() => {
-      const slides = [
-        {
-          title: 'Kick Off Meeting',
-          description: 'Introductions, an overview of timelines, and next steps are discussed during this meeting.',
-        },
-        {
-          title: 'Discovery',
-          description: 'This is the time when we really dive into what your needs are, create a discovery document that outlines all work that will be done so we have a clear path forward.',
-        },
-        {
-          title: 'Design (optional)',
-          description: 'This is where we create mockups and prototypes for your review and feedback.',
-        },
-        {
-          title: 'Development',
-          description: 'This is where the actual coding and implementation of the project takes place.',
-        },
-        {
-          title: 'Testing',
-          description: 'This is where we thoroughly test the project to ensure everything works as expected.',
-        },
-        {
-          title: 'Launch',
-          description: 'This is when the project goes live and is made available to users.',
-        },
-
-      ];
-      return <EmblaCarousel slides={slides} client:only="react" />;
-    })()}
-  </section>
-
-  <section class="mx-auto max-w-screen-2xl px-4 py-10">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_THOUGHTS']}</h2>
-    {posts.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {posts.map((post) => (
-          <div class="w-full rounded overflow-hidden shadow-lg mx-2">
-            <img class="w-full h-auto" src={post.mainImage ? urlForImage(post.mainImage).url() : ''} alt={post.title} />
-
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">{post.title}</div>
-              <p class="text-white text-base">
-                {post.body?.[0]?.children?.[0]?.text || 'No description available.'}
-              </p>
-              <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
-                <a href={`/post/${post.slug.current}`}>{TEXT['READ_ARTICLE']}</a>
-              </button>
-            </div>
-          </div>
-        ))}
+  <!-- OUR SERVICES -->
+  <section class="py-10 max-w-screen-2xl px-4 md:px-12">
+    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_SERVICES']}</h2>
+    <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1" open>
+      <summary class="collapse-title pl-0">01 E-Commerce</summary>
+      <div class="collapse-content">
+        <p>
+          We have done everything from simple stores to complex multi-store setups with custom integrations on Shopify
+          and Salesforce Commerce Cloud. We have even helped build a custom external app for Shopify. Looking at
+          something other than the two listed? We can help you with that too. We can help you with:
+        </p>
+        <ul class="list-disc list-inside pt-4">
+          <li>Setup and configuration</li>
+          <li>Theme development</li>
+          <li>App development (Shopify)</li>
+          <li>Migration</li>
+          <li>Performance optimization</li>
+        </ul>
       </div>
-    ) : (
-      <p>No posts found.</p>
-    )}
+    </details>
+    <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1">
+      <summary class="collapse-title pl-0">02 Websites</summary>
+      <div class="collapse-content">
+        Need a custom website or help with your existing website? We can help you with that too. Whether it is
+        Squarespace, Wordpress, or something else, we can set up a site that matches your brand and your needs. We can
+        help you with:
+        <ul class="list-disc list-inside pt-4">
+          <li>Setup and configuration</li>
+          <li>Theme development</li>
+          <li>Migration</li>
+          <li>Performance optimization</li>
+        </ul>
+      </div>
+    </details>
+    <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1">
+      <summary class="collapse-title pl-0">03 UX / UI Design</summary>
+      <div class="collapse-content">
+        Need a custom design for your website or app? We can help you with that too. At Snowdonia we love using Figma to
+        create designs that are both functional and beautiful. We can help you with:
+        <ul class="list-disc list-inside pt-4">
+          <li>Design</li>
+          <li>Prototyping</li>
+          <li>Wireframing</li>
+          <li>Mockups</li>
+          <li>Branding</li>
+          <li>Visual Identity</li>
+          <li>Color Schemes</li>
+          <li>Typography</li>
+          <li>Iconography</li>
+          <li>Animation</li>
+        </ul>
+      </div>
+    </details>
   </section>
 
-  <section class="mx-auto max-w-screen-2xl border-t px-4 py-8">
-    <h2 class="text-2xl font-semibold mb-4">{TEXT['OUR_THOUGHTS']}</h2>
+  <!-- OUR WORK -->
+  <section class="py-10 max-w-screen-2xl pl-4 md:pl-12">
+    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_WORK']}</h2>
+  </section>
+
+  <!-- OUR PROCESS -->
+  <section class="py-10 max-w-screen-2xl pl-4 md:pl-12">
+    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_PROCESS']}</h2>
+    {
+      (() => {
+        const slides = [
+          {
+            title: '01 Kick Off Meeting',
+            description: 'Introductions, an overview of timelines, and next steps are discussed during this meeting.',
+          },
+          {
+            title: '02 Discovery',
+            description:
+              'This is the time when we really dive into what your needs are, create a discovery document that outlines all work that will be done so we have a clear path forward.',
+          },
+          {
+            title: '03 Design (optional)',
+            description: 'This is where we create mockups and prototypes for your review and feedback.',
+          },
+          {
+            title: '04 Development',
+            description: 'This is where the actual coding and implementation of the project takes place.',
+          },
+          {
+            title: '05 Testing',
+            description: 'This is where we thoroughly test the project to ensure everything works as expected.',
+          },
+          {
+            title: '06 Launch',
+            description: 'This is when the project goes live and is made available to users.',
+          },
+        ];
+        return <EmblaCarousel slides={slides} client:only="react" />;
+      })()
+    }
+  </section>
+
+  <!-- OUR THOUGHTS -->
+  <section class="mx-auto max-w-screen-2xl px-4 md:px-12 py-10">
+    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_THOUGHTS']}</h2>
     {
       posts.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -202,34 +240,4 @@ const homepage = homepageQuery.data.result;
       )
     }
   </section>
-
-<section class="mx-auto max-w-screen-2xl border-t px-4 py-8">
-    <h2 class="text-2xl font-semibold mb-4">{TEXT['OUR_THOUGHTS']}</h2>
-    {
-      posts.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {posts.map((post) => (
-            <div class="w-full rounded overflow-hidden shadow-lg mx-2">
-              <img
-                class="w-full h-auto"
-                src={post.mainImage ? urlForImage(post.mainImage).url() : ''}
-                alt={post.title}
-              />
-
-              <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">{post.title}</div>
-                <p class="text-white text-base">{post.body?.[0]?.children?.[0]?.text || 'No description available.'}</p>
-                <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
-                  <a href={`/post/${post.slug.current}`}>{TEXT['READ_ARTICLE']}</a>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No posts found.</p>
-      )
-    }
-  </section>
-  <Services />
 </div>

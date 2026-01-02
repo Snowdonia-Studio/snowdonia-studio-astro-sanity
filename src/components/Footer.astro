@@ -3,32 +3,13 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mx-auto max-w-screen-2xl border-t px-4 py-8">
-  <a href="/">
-    <img src="../assets/snowdonia-logo-light.png" alt="Snowdonia Studio" class="h-10 w-10" />
-  </a>
-  <div class="flex flex-row items-center justify-between">
-    <ul>
-      <li>
-        <a href="/services">Services</a>
-      </li>
-      <li>
-        <a href="/work">Work</a>
-      </li>
-      <li>
-        <a href="/about">About</a>
-      </li>
-      <li>
-        <a href="/contact">Contact</a>
-      </li>
-    </ul>
-    <ul class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
-      <li>
-        <a
-          class="inline-flex items-center gap-2 hover:underline"
-          href="https://www.linkedin.com/company/snowdonia-studio/"
-        >
-          LinkedIn
+<footer class="footer mx-auto max-w-screen-2xl bg-teal-200 text-black px-4 pb-4 pt-14">
+  <div class="w-full flex flex-wrap justify-between">
+    <div class="pt-4">
+      <h2>Wanna Chat?</h2>
+      <p class="text-xl pt-8">
+        Email us at <a href="mailto:hello@snowdonia.studio">hello@snowdonia.studio</a>
+        <button onclick="myFunction()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -37,13 +18,53 @@ const currentYear = new Date().getFullYear();
             stroke="currentColor"
             class="size-5"
           >
-            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+            ></path>
           </svg>
-        </a>
-      </li>
-    </ul>
+        </button>
+      </p>
+    </div>
+    <div class="flex">
+      <div>
+        <ul class="menu">
+          <li class="menu-title text-black">Navigation</li>
+          <li><a href="#services" class="link link-hover">Services</a></li>
+          <li><a href="#work" class="link link-hover">Work</a></li>
+          <li><a href="#about" class="link link-hover">About</a></li>
+          <li><a href="/contact" class="link link-hover">Contact</a></li>
+          <li><a href="/contact" class="link link-hover">Blog</a></li>
+        </ul>
+      </div>
+      <ul class="menu">
+        <li class="menu-title text-black">Follow Us</li>
+        <li><a href="https://www.linkedin.com/company/snowdonia-studio" class="link link-hover">LinkedIn</a></li>
+        <li><a href="https://github.com/snowdonia-studio" class="link link-hover">Github</a></li>
+      </ul>
+    </div>
   </div>
-  <p class="pt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-    &copy; {currentYear} Snowdonia Studio. All rights reserved.
-  </p>
+  <aside class="w-full flex justify-center">
+    <p class="pt-4 text-center text-sm footer-center">
+      &copy; {currentYear} Snowdonia Studio. All rights reserved.
+    </p>
+  </aside>
+
+  <script>
+    function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById('myInput');
+
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+
+      // Alert the copied text
+      alert('Copied the text: ' + copyText.value);
+    }
+  </script>
 </footer>
