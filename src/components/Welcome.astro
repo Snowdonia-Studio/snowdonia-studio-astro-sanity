@@ -172,6 +172,25 @@ const homepage = homepageQuery.data.result;
   <!-- OUR WORK -->
   <section class="py-10 max-w-screen-2xl pl-4 md:pl-12">
     <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_WORK']}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="card">
+        <figure><img src="https://placehold.co/600x400" alt="Placeholder" /></figure><div class="card-body">
+          <div class="card-title">Card Title</div><p>Card Description</p>
+        </div>
+      </div>
+      <div class="card">
+        <figure><img src="https://placehold.co/600x400" alt="Placeholder" /></figure><div class="card-body">
+          <div class="card-title">Card Title</div>
+          <div class="badge badge-secondary">SquareSpace</div>
+          <p>Card Description</p>
+        </div>
+      </div>
+      <div class="card">
+        <figure><img src="https://placehold.co/600x400" alt="Placeholder" /></figure><div class="card-body">
+          <div class="card-title">Card Title</div><p>Card Description</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- OUR PROCESS -->
@@ -218,15 +237,16 @@ const homepage = homepageQuery.data.result;
       posts.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {posts.map((post) => (
-            <div class="w-full rounded overflow-hidden shadow-lg mx-2">
-              <img
-                class="w-full h-auto"
-                src={post.mainImage ? urlForImage(post.mainImage).url() : ''}
-                alt={post.title}
-              />
-
-              <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">{post.title}</div>
+            <div class="card w-full rounded overflow-hidden shadow-lg mx-2">
+              <figure>
+                <img
+                  class="w-full h-auto"
+                  src={post.mainImage ? urlForImage(post.mainImage).url() : ''}
+                  alt={post.title}
+                />
+              </figure>
+              <div class="card-body">
+                <div class="card-title text-xl mb-2">{post.title}</div>
                 <p class="text-white text-base">{post.body?.[0]?.children?.[0]?.text || 'No description available.'}</p>
                 <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
                   <a href={`/post/${post.slug.current}`}>{TEXT['READ_ARTICLE']}</a>

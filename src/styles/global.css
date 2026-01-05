@@ -49,4 +49,10 @@
 
 .menu-title {
   font-size: var(--text-xl);
+  padding-left: 0;
+}
+
+.menu .link,
+.menu {
+  padding-left: 0;
 }
