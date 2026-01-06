@@ -1,0 +1,13 @@
+[build]
+  publish = "dist"
+
+# Redirect /en and any /en/* routes to root
+[[redirects]]
+  from = "/en"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat"
+  status = 301
