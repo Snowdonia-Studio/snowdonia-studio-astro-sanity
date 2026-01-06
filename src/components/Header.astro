@@ -29,9 +29,9 @@
   <!-- Desktop Navigation -->
   <div class="hidden flex-row items-center gap-3 md:flex">
     <nav class="inline-flex gap-8">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
+      <a href="/#services" class="hover:text-teal-500 transition-colors">Our Services</a>
+      <a href="/#work" class="hover:text-teal-500 transition-colors">Our Process</a>
+      <a href="/#about" class="hover:text-teal-500 transition-colors">Our Thoughts</a>
       <a href="/contact" class="contact-link">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,16 +102,16 @@
   class="hidden fixed left-[50%] top-[90px] z-40 mt-8 w-[90%] max-w-screen-2xl -translate-x-1/2 transform rounded-2xl border bg-white p-6 shadow-lg dark:border-stone-100 dark:bg-stone-800 md:hidden"
 >
   <nav class="flex flex-col gap-4">
-    <a href="#services" class="text-lg font-medium mobile-menu-link">
-      <span class="link-underline">Services</span>
+    <a href="/#services" class="text-lg font-medium mobile-menu-link hover:text-teal-500 transition-colors">
+      <span class="link-underline">Our Services</span>
     </a>
-    <a href="#work" class="text-lg font-medium mobile-menu-link">
-      <span class="link-underline">Work</span>
+    <a href="/#work" class="text-lg font-medium mobile-menu-link hover:text-teal-500 transition-colors">
+      <span class="link-underline">Our Process</span>
     </a>
-    <a href="#about" class="text-lg font-medium mobile-menu-link">
-      <span class="link-underline">About</span>
+    <a href="/#about" class="text-lg font-medium mobile-menu-link hover:text-teal-500 transition-colors">
+      <span class="link-underline">Our Thoughts</span>
     </a>
-    <a href="/contact" class="text-lg font-medium mobile-menu-link">
+    <a href="/contact" class="text-lg font-medium mobile-menu-link hover:text-teal-500 transition-colors">
       <span class="link-underline">Contact</span>
     </a>
   </nav>
@@ -141,4 +141,38 @@
       });
     });
   }
+
+  // Handle navigation links for smooth scrolling
+  document.addEventListener('DOMContentLoaded', () => {
+    // Handle anchor links on page load (if coming from another page with hash)
+    if (window.location.hash) {
+      setTimeout(() => {
+        const targetId = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+
+    // Handle all navigation links
+    const navLinks = document.querySelectorAll('a[href^="/#"]');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        const targetId = href.replace('/#', '');
+        
+        // If we're on the homepage, scroll to the section
+        if (window.location.pathname === '/') {
+          event.preventDefault();
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+        // If we're on another page, let the default navigation happen
+        // (it will navigate to home page with the hash)
+      });
+    });
+  });
 </script>

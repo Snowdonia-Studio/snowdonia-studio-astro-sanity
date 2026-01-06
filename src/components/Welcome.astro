@@ -115,7 +115,7 @@ const homepage = homepageQuery.data.result;
   }
 
   <!-- OUR SERVICES -->
-  <section class="py-10 max-w-screen-2xl px-4 md:px-12">
+  <section id="services" class="py-10 max-w-screen-2xl px-4 md:px-12">
     <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_SERVICES']}</h2>
     <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1" open>
       <summary class="collapse-title pl-0">01 E-Commerce</summary>
@@ -194,7 +194,7 @@ const homepage = homepageQuery.data.result;
   </section> -->
 
   <!-- OUR PROCESS -->
-  <section class="py-10 max-w-screen-2xl pl-4 md:pl-12">
+  <section id="work" class="py-10 max-w-screen-2xl pl-4 md:pl-12">
     <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_PROCESS']}</h2>
     {
       (() => {
@@ -231,13 +231,13 @@ const homepage = homepageQuery.data.result;
   </section>
 
   <!-- OUR THOUGHTS -->
-  <section class="mx-auto max-w-screen-2xl px-4 md:px-12 py-10">
+  <section id="about" class="mx-auto max-w-screen-2xl px-4 md:px-12 py-10">
     <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_THOUGHTS']}</h2>
     {
       posts.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {posts.map((post) => (
-            <div class="card w-full rounded overflow-hidden shadow-lg mx-2">
+            <div class="card w-full rounded overflow-hidden shadow-lg">
               <figure>
                 <img
                   class="w-full h-auto"
