@@ -17,7 +17,7 @@ export default function EmblaCarousel({ slides }) {
   });
 
   return (
-    <div className="embla" ref={emblaRef}>
+    <div className="embla overflow-hidden" ref={emblaRef}>
       <div className="embla__container flex flex-row gap-4 will-change-transform cursor-grab active:cursor-grabbing">
         {slides.map((slide, idx) => (
           <EmblaSlide key={idx} title={slide.title} description={slide.description} />
