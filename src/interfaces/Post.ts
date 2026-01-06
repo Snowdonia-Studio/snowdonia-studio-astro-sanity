@@ -1,6 +1,7 @@
 export interface Post {
   _id: string;
   title: string;
+  subtitle?: string;
   slug: {
     current: string
   };

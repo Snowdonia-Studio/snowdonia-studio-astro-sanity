@@ -1,4 +1,9 @@
 ---
+
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
 import { loadQuery } from '../../sanity/lib/load-query';
 import type { Post } from '../../interfaces/Post.ts';
 import { urlForImage } from '../../sanity/lib/url-for-image';
@@ -33,24 +38,68 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
 const { data } = await loadQuery<Post>({ query, params: { slug } });
 ---
 
-{data ? (
-  // This is boilerplate code for now to get everything working
-  <article>
-    <h1>{data.result.title}</h1>
-      {data?.result?.mainImage?.asset?._ref && (
-        <img
-          src={urlForImage({ asset: { _ref: data?.result?.mainImage?.asset?._ref } }).url()}
-          alt="Background"
-        />
+<Layout>
+  <Header />
+  <main class="min-h-screen bg-neutral-900 flex flex-col items-center justify-start py-16 px-2">
+    <div class="w-full max-w-4xl bg-transparent rounded-xl p-0 md:p-0">
+      {data ? (
+        <article>
+          <h1 class="text-white text-4xl md:text-5xl font-extrabold mb-8 mt-8">{data?.result?.title}</h1>
+          {data?.result?.subtitle && (
+            <h2 class="text-gray-200 text-lg font-light mb-4 max-w-2xl">{data?.result?.subtitle}</h2>
+          )}
+          {data?.result?.mainImage?.asset?._ref && (
+            <img
+              src={urlForImage({ asset: { _ref: data?.result?.mainImage?.asset?._ref } }).url()}
+              alt="Post image"
+              class="w-full rounded-lg shadow mb-4 object-cover"
+              style="max-height:340px;"
+            />
+          )}
+          <div class="mb-10 text-gray-400 text-base">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+              <div>
+                {data?.result?.author?.name && <span>By <span class="font-semibold text-white">{data?.result?.author.name}</span></span>}
+              </div>
+              <div>
+                {data?.result?.publishedAt && <span>{new Date(data?.result?.publishedAt).toLocaleDateString()}</span>}
+              </div>
+            </div>
+          </div>
+          <div class="prose prose-invert prose-lg max-w-none text-gray-100 leading-relaxed">
+            {data?.result?.body && Array.isArray(data.result.body) && data.result.body.length > 0 && (
+              data.result.body.map((block, i) => {
+                if (!block.children || block.children.length === 0) return null;
+                const text = block.children.map((child: any) => child.text).join('');
+                switch (block.style) {
+                  case 'h1':
+                    return <h1>{text}</h1>;
+                  case 'h2':
+                    return <h2>{text}</h2>;
+                  case 'h3':
+                    return <h3>{text}</h3>;
+                  case 'h4':
+                    return <h4>{text}</h4>;
+                  case 'blockquote':
+                    return <blockquote>{text}</blockquote>;
+                  default: {
+                    // Replace single line breaks with <br />
+                    const lines = text.split(/\n/);
+
+                    return <p class="mb-4">{lines.map((line: string, idx: number) => idx === 0 ? line : [<br />, line])}</p>;
+                  }
+                }
+              })
+            )}
+            {data?.result?.body && !Array.isArray(data.result.body) && (
+                <p>{String(data.result.body).split(/\n/).map((line: string, idx: number) => idx === 0 ? line : [<br />, line])}</p>
+            )}
+          </div>
+        </article>
+      ) : (
+        <p class="text-center text-lg py-16 text-white">Post not found.</p>
       )}
-
-    {data.result.author?.name && <p>By {data.result.author.name}</p>}
-    {data.result.publishedAt && <p>{new Date(data.result.publishedAt).toLocaleDateString()}</p>}
-    {data.result.body && (
-      <p>{data.result.body[0]?.children[0]?.text}</p>
-    )}
-
-  </article>
-) : (
-  <p>Post not found.</p>
-)}
+    </div>
+  </main>
+  <Footer />
+</Layout>
