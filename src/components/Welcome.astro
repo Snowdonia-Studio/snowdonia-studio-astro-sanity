@@ -1,10 +1,10 @@
 ---
-import { loadQuery } from '../sanity/lib/load-query';
-import { urlForImage } from '../sanity/lib/url-for-image';
-import EmblaCarousel from './EmblaCarousel.jsx';
-import type { HomepageSection, HomepageData } from '../interfaces/Homepage.ts';
-import type { Post } from '../interfaces/Post.ts';
-import TEXT from '../constants.js';
+import { loadQuery } from "../sanity/lib/load-query";
+import { urlForImage } from "../sanity/lib/url-for-image";
+import EmblaCarousel from "./EmblaCarousel.jsx";
+import type { HomepageSection, HomepageData } from "../interfaces/Homepage.ts";
+import type { Post } from "../interfaces/Post.ts";
+import TEXT from "../constants.js";
 
 const postsQuery = await loadQuery<Post[]>({
   query: `*[_type == "post"]|order(publishedAt desc){
@@ -62,17 +62,30 @@ const homepage = homepageQuery.data.result;
         muted
         playsinline
         preload="auto"></video>
-      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-      <div class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 mt-20 pt-40">
+      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50">
+      </div>
+      <div
+        class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 mt-20 pt-40"
+      >
         <h1 class="text-teal-200 mb-5">
           {homepage?.title}
         </h1>
-        {homepage?.subtitle && <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>}
-        {homepage?.description && <p class="text-lg text-white mt-4">{homepage?.description}</p>}
+        {
+          homepage?.subtitle && (
+            <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>
+          )
+        }
+        {
+          homepage?.description && (
+            <p class="text-lg text-white mt-4">{homepage?.description}</p>
+          )
+        }
         <section id="links">
-          <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
+          <button
+            class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full"
+          >
             <a href="/contact" class="inline-flex items-center"
-              >{TEXT['LETS_CHAT']}
+              >{TEXT["LETS_CHAT"]}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -102,7 +115,7 @@ const homepage = homepageQuery.data.result;
             {section.image && (
               <img
                 src={urlForImage(section.image).width(600).height(400).url()}
-                alt={section.image.alt || section.title || 'Section image'}
+                alt={section.image.alt || section.title || "Section image"}
                 class="section-image"
               />
             )}
@@ -116,14 +129,20 @@ const homepage = homepageQuery.data.result;
 
   <!-- OUR SERVICES -->
   <section id="services" class="py-10 px-4 md:px-12">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_SERVICES']}</h2>
-    <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1" open>
+    <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_SERVICES"]}</h2>
+    <details
+      class="collapse border-b-2 border-teal-200 rounded-none"
+      name="my-accordion-det-1"
+      open
+    >
       <summary class="collapse-title pl-0">01 E-Commerce</summary>
       <div class="collapse-content">
         <p>
-          We have done everything from simple stores to complex multi-store setups with custom integrations on Shopify
-          and Salesforce Commerce Cloud. We have even helped build a custom external app for Shopify. Looking at
-          something other than the two listed? We can help you with that too. We can help you with:
+          We have done everything from simple stores to complex multi-store
+          setups with custom integrations on Shopify and Salesforce Commerce
+          Cloud. We have even helped build a custom external app for Shopify.
+          Looking at something other than the two listed? We can help you with
+          that too. We can help you with:
         </p>
         <ul class="list-disc list-inside pt-4">
           <li>Setup and configuration</li>
@@ -134,12 +153,16 @@ const homepage = homepageQuery.data.result;
         </ul>
       </div>
     </details>
-    <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1">
+    <details
+      class="collapse border-b-2 border-teal-200 rounded-none"
+      name="my-accordion-det-1"
+    >
       <summary class="collapse-title pl-0">02 Websites</summary>
       <div class="collapse-content">
-        Need a custom website or help with your existing website? We can help you with that too. Whether it is
-        Squarespace, Wordpress, or something else, we can set up a site that matches your brand and your needs. We can
-        help you with:
+        Need a custom website or help with your existing website? We can help
+        you with that too. Whether it is Squarespace, Wordpress, or something
+        else, we can set up a site that matches your brand and your needs. We
+        can help you with:
         <ul class="list-disc list-inside pt-4">
           <li>Setup and configuration</li>
           <li>Theme development</li>
@@ -148,11 +171,15 @@ const homepage = homepageQuery.data.result;
         </ul>
       </div>
     </details>
-    <details class="collapse border-b-2 border-teal-200 rounded-none" name="my-accordion-det-1">
+    <details
+      class="collapse border-b-2 border-teal-200 rounded-none"
+      name="my-accordion-det-1"
+    >
       <summary class="collapse-title pl-0">03 UX / UI Design</summary>
       <div class="collapse-content">
-        Need a custom design for your website or app? We can help you with that too. At Snowdonia we love using Figma to
-        create designs that are both functional and beautiful. We can help you with:
+        Need a custom design for your website or app? We can help you with that
+        too. At Snowdonia we love using Figma to create designs that are both
+        functional and beautiful. We can help you with:
         <ul class="list-disc list-inside pt-4">
           <li>Design</li>
           <li>Prototyping</li>
@@ -195,34 +222,39 @@ const homepage = homepageQuery.data.result;
 
   <!-- OUR PROCESS -->
   <section id="work" class="py-10 pl-4 md:pl-12">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_PROCESS']}</h2>
+    <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_PROCESS"]}</h2>
     {
       (() => {
         const slides = [
           {
-            title: '01 Kick Off Meeting',
-            description: 'Introductions, an overview of timelines, and next steps are discussed during this meeting.',
-          },
-          {
-            title: '02 Discovery',
+            title: "01 Kick Off Meeting",
             description:
-              'This is the time when we really dive into what your needs are, create a discovery document that outlines all work that will be done so we have a clear path forward.',
+              "Introductions, an overview of timelines, and next steps are discussed during this meeting.",
           },
           {
-            title: '03 Design (optional)',
-            description: 'This is where we create mockups and prototypes for your review and feedback.',
+            title: "02 Discovery",
+            description:
+              "This is the time when we really dive into what your needs are, create a discovery document that outlines all work that will be done so we have a clear path forward.",
           },
           {
-            title: '04 Development',
-            description: 'This is where the actual coding and implementation of the project takes place.',
+            title: "03 Design (optional)",
+            description:
+              "This is where we create mockups and prototypes for your review and feedback.",
           },
           {
-            title: '05 Testing',
-            description: 'This is where we thoroughly test the project to ensure everything works as expected.',
+            title: "04 Development",
+            description:
+              "This is where the actual coding and implementation of the project takes place.",
           },
           {
-            title: '06 Launch',
-            description: 'This is when the project goes live and is made available to users.',
+            title: "05 Testing",
+            description:
+              "This is where we thoroughly test the project to ensure everything works as expected.",
+          },
+          {
+            title: "06 Launch",
+            description:
+              "This is when the project goes live and is made available to users.",
           },
         ];
         return <EmblaCarousel slides={slides} client:only="react" />;
@@ -231,33 +263,36 @@ const homepage = homepageQuery.data.result;
   </section>
 
   <!-- OUR THOUGHTS -->
-  <section id="about" class="px-4 md:px-12 py-10">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_THOUGHTS']}</h2>
-    {
-      posts.length > 0 ? (
+  {
+    posts.length > 0 && (
+      <section id="about" class="px-4 md:px-12 py-10">
+        <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_THOUGHTS"]}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {posts.map((post) => (
             <div class="card w-full rounded overflow-hidden shadow-lg">
               <figure>
                 <img
-                  class="w-full h-auto"
-                  src={post.mainImage ? urlForImage(post.mainImage).url() : ''}
+                  class="w-[100%] max-h-[400px]"
+                  src={post.mainImage ? urlForImage(post.mainImage).url() : ""}
                   alt={post.title}
                 />
               </figure>
               <div class="card-body">
                 <div class="card-title text-xl mb-2">{post.title}</div>
-                <p class="text-white text-base">{post.body?.[0]?.children?.[0]?.text || 'No description available.'}</p>
+                <p class="text-white text-base">
+                  {post.body?.[0]?.children?.[0]?.text ||
+                    "No description available."}
+                </p>
                 <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
-                  <a href={`/post/${post.slug.current}`}>{TEXT['READ_ARTICLE']}</a>
+                  <a href={`/post/${post.slug.current}`}>
+                    {TEXT["READ_ARTICLE"]}
+                  </a>
                 </button>
               </div>
             </div>
           ))}
         </div>
-      ) : (
-        <p>No posts found.</p>
-      )
-    }
-  </section>
+      </section>
+    )
+  }
 </div>
