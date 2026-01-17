@@ -4,9 +4,53 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
+
+<head>
+  <title>Snowdonia Studio | Web Development & Design Experts</title>
+  <meta name="description" content="Snowdonia Studio specializes in modern web development and design, creating responsive, user-friendly websites to elevate your online presence." />
+  <meta name="keywords" content="Snowdonia, Snowdonia Studio, web development, web design, responsive websites, modern websites, development services, digital solutions, website design, website development" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Snowdonia Studio | Web Development & Design Experts" />
+  <meta property="og:description" content="Snowdonia Studio specializes in modern web development and design, creating responsive, user-friendly websites to elevate your online presence." />
+  <meta property="og:image" content="/public/favicon.svg" />
+  <meta property="og:url" content="https://snowdoniastudio.com" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://snowdoniastudio.com" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Snowdonia Studio",
+      "url": "https://snowdoniastudio.com",
+      "logo": "/path-to-your-logo.jpg",
+      "description": "Snowdonia Studio specializes in modern web development and design, creating responsive, user-friendly websites to elevate your online presence.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-800-555-0199",
+        "contactType": "customer service",
+        "areaServed": "Worldwide",
+        "availableLanguage": ["English"]
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/snowdonia-studio"
+      ],
+      "service": [
+        {
+          "@type": "Service",
+          "name": "Web Development",
+          "description": "Custom web development services tailored to your business needs."
+        },
+        {
+          "@type": "Service",
+          "name": "Web Design",
+          "description": "Modern, responsive web design to enhance user experience."
+        }
+      ]
+    }
+  </script>
+</head>
 
 <Layout>
   <Header />
