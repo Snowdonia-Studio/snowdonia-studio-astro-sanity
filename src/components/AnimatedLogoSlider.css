@@ -1,7 +1,5 @@
 :root {
   --mint: #96f7e4;
-  --logo-shadow: rgba(0, 0, 0, 0.6);
-  /* Centralize duration to ensure sync */
   --anim-duration: 0.8s;
 }
 
@@ -14,49 +12,14 @@
   width: 50%;
   margin: 0 auto;
   min-width: 260px;
-  top: -25px;
-  gap: 1rem; /* Use gap instead of reliance on margins */
+  gap: 1rem;
 }
 
-/* NEW: This acts as the "Stage" for each individual logo slot */
 .logo-slot {
   position: relative;
   height: 100%;
-  /* Important: Hide the logo as it flies up out of the box */
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* The Wrapper: This becomes the actual visible logo */
-.logo-tint {
-  display: inline-flex;
-  background-color: var(--mint); /* The EXACT hex code */
-
-  /* Use the image shape to cut out the background color */
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-
-  transition:
-    transform 300ms ease,
-    opacity 300ms ease;
-}
-
-/* The Image: Invisible, but keeps the width/height correct */
-.logo-img {
-  height: 35px;
   display: block;
-  opacity: 0; /* Hide the original image */
-}
-
-/* Large logo override */
-.logo-img.logo-large {
-  height: 100px;
 }
 
 .logo-slide {
@@ -65,18 +28,18 @@
   align-items: center;
   width: 100%;
   height: 100%;
-
-  /* CRITICAL FIX: Absolute positioning ensures 'up' and 'down' 
-     occupy the exact same physical space. */
   position: absolute;
   top: 0;
   left: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
-/* The active (static) slide also needs to be absolute to match the layout 
-   of the animating slides, preventing a jump when state switches. */
 .logo-slide.active {
   z-index: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .logo-slide.up {
@@ -91,13 +54,45 @@
     forwards;
 }
 
+.logo-slide.hidden {
+  z-index: 0;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.logo-tint {
+  display: inline-flex;
+  background-color: var(--mint);
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: none;
+}
+
+.logo-img {
+  height: 35px;
+  display: block;
+  opacity: 0;
+}
+
+.logo-img.logo-large {
+  height: 100px;
+}
+
 @keyframes slideUpFadeOut {
   0% {
     transform: translateY(0);
     opacity: 1;
   }
   100% {
-    transform: translateY(-50px); /* Increased distance for cleaner exit */
+    transform: translateY(-50px);
     opacity: 0;
   }
 }
@@ -117,9 +112,11 @@
   .logo-slider-row {
     width: 90%;
     gap: 0.5rem;
-    top: -25px;
   }
   .logo-img {
     height: 28px;
+  }
+  .logo-img.logo-large {
+    height: 45px;
   }
 }

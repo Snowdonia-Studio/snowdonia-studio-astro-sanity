@@ -42,81 +42,62 @@ const ANIMATION_DURATION = 800;
 const PAUSE_DURATION = 1200;
 
 export default function AnimatedLogoSlider() {
-  const [startIdx, setStartIdx] = useState(0);
+  const [cycle, setCycle] = useState(0);
   const [animating, setAnimating] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimating(true);
       setTimeout(() => {
-        setStartIdx((prev) => (prev + VISIBLE_COUNT) % logos.length);
         setAnimating(false);
+        setCycle((prev) => prev + 1);
       }, ANIMATION_DURATION);
     }, ANIMATION_DURATION + PAUSE_DURATION);
 
     return () => clearInterval(interval);
   }, []);
 
-  const currentLogos = Array.from({ length: VISIBLE_COUNT }).map(
-    (_, i) => logos[(startIdx + i) % logos.length],
-  );
+  const isBufferAActive = cycle % 2 === 0;
 
-  const nextLogos = Array.from({ length: VISIBLE_COUNT }).map(
-    (_, i) => logos[(startIdx + VISIBLE_COUNT + i) % logos.length],
-  );
+  const idxA = isBufferAActive
+    ? cycle * VISIBLE_COUNT
+    : (cycle + 1) * VISIBLE_COUNT;
+  const idxB = !isBufferAActive
+    ? cycle * VISIBLE_COUNT
+    : (cycle + 1) * VISIBLE_COUNT;
+
+  const getLogos = (startIndex) => {
+    return Array.from({ length: VISIBLE_COUNT }).map(
+      (_, i) => logos[(startIndex + i) % logos.length],
+    );
+  };
+
+  const bufferALogos = getLogos(idxA);
+  const bufferBLogos = getLogos(idxB);
 
   return (
     <>
       <div className="logo-slider-row">
-        {currentLogos.map((current, i) => {
-          const incoming = nextLogos[i];
+        {Array.from({ length: VISIBLE_COUNT }).map((_, i) => {
           return (
             <div
               key={`slot-${i}`}
               className="logo-slot"
               style={{ width: `${100 / VISIBLE_COUNT}%` }}
             >
-              {/* CURRENT LOGO */}
-              <div className={`logo-slide ${animating ? "up" : "active"}`}>
-                <div
-                  className="logo-tint"
-                  style={{
-                    WebkitMaskImage: `url(${current.src})`,
-                    maskImage: `url(${current.src})`,
-                  }}
-                >
-                  <img
-                    src={current.src}
-                    alt={current.alt}
-                    className={`logo-img ${current.className || ""}`}
-                  />
-                </div>
-              </div>
-
-              {/* INCOMING LOGO */}
-              {animating && (
-                <div className="logo-slide down">
-                  <div
-                    className="logo-tint"
-                    style={{
-                      WebkitMaskImage: `url(${incoming.src})`,
-                      maskImage: `url(${incoming.src})`,
-                    }}
-                  >
-                    <img
-                      src={incoming.src}
-                      alt={incoming.alt}
-                      className={`logo-img ${incoming.className || ""}`}
-                    />
-                  </div>
-                </div>
-              )}
+              <LogoSlide
+                logo={bufferALogos[i]}
+                state={getSlideState(true, isBufferAActive, animating)}
+              />
+              <LogoSlide
+                logo={bufferBLogos[i]}
+                state={getSlideState(false, isBufferAActive, animating)}
+              />
             </div>
           );
         })}
       </div>
 
-      {/* Keep the preloader */}
       <div
         style={{
           position: "absolute",
@@ -131,5 +112,35 @@ export default function AnimatedLogoSlider() {
         ))}
       </div>
     </>
+  );
+}
+
+function getSlideState(isBufferA, isBufferAActive, animating) {
+  if (isBufferA) {
+    if (isBufferAActive) return animating ? "up" : "active";
+    return animating ? "down" : "hidden";
+  } else {
+    if (!isBufferAActive) return animating ? "up" : "active";
+    return animating ? "down" : "hidden";
+  }
+}
+
+function LogoSlide({ logo, state }) {
+  return (
+    <div className={`logo-slide ${state}`}>
+      <div
+        className="logo-tint"
+        style={{
+          WebkitMaskImage: `url(${logo.src})`,
+          maskImage: `url(${logo.src})`,
+        }}
+      >
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          className={`logo-img ${logo.className || ""}`}
+        />
+      </div>
+    </div>
   );
 }
