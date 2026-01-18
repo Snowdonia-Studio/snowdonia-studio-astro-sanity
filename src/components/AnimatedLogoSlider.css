@@ -1,5 +1,5 @@
 :root {
-  --mint: #7fffe0;
+  --mint: #96f7e4;
   --logo-shadow: rgba(0, 0, 0, 0.6);
   /* Centralize duration to ensure sync */
   --anim-duration: 0.8s;
@@ -29,25 +29,32 @@
   align-items: center;
 }
 
-.logo-img {
-  height: 35px;
-  display: block;
+/* The Wrapper: This becomes the actual visible logo */
+.logo-tint {
+  display: inline-flex;
+  background-color: var(--mint); /* The EXACT hex code */
 
-  /* Apply the Mint color filter */
-  filter: brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(760%)
-    hue-rotate(95deg) brightness(103%) contrast(102%)
-    drop-shadow(0 2px 4px var(--logo-shadow));
+  /* Use the image shape to cut out the background color */
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 
-  /* CRITICAL FIX: Removed 'filter' from transition.
-     We want the logo to be Mint instantly, never transitioning 
-     from its original color.
-  */
   transition:
     transform 300ms ease,
     opacity 300ms ease;
 }
 
-/* Ensure large logos (Salesforce) are sized correctly */
+/* The Image: Invisible, but keeps the width/height correct */
+.logo-img {
+  height: 35px;
+  display: block;
+  opacity: 0; /* Hide the original image */
+}
+
+/* Large logo override */
 .logo-img.logo-large {
   height: 100px;
 }

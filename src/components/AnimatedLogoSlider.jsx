@@ -76,28 +76,39 @@ export default function AnimatedLogoSlider() {
               className="logo-slot"
               style={{ width: `${100 / VISIBLE_COUNT}%` }}
             >
-              {/* STABLE DOM: This div is ALWAYS rendered. 
-                 It switches between 'active' and 'up' classes.
-                 This prevents the "exit" flash. 
-              */}
+              {/* CURRENT LOGO */}
               <div className={`logo-slide ${animating ? "up" : "active"}`}>
-                <img
-                  src={current.src}
-                  alt={current.alt}
-                  className={`logo-img ${current.className || ""}`}
-                />
+                <div
+                  className="logo-tint"
+                  style={{
+                    WebkitMaskImage: `url(${current.src})`,
+                    maskImage: `url(${current.src})`,
+                  }}
+                >
+                  <img
+                    src={current.src}
+                    alt={current.alt}
+                    className={`logo-img ${current.className || ""}`}
+                  />
+                </div>
               </div>
 
-              {/* INCOMING SLIDE: Only renders during animation.
-                 Because we preloaded images below, this will appear instantly.
-              */}
+              {/* INCOMING LOGO */}
               {animating && (
                 <div className="logo-slide down">
-                  <img
-                    src={incoming.src}
-                    alt={incoming.alt}
-                    className={`logo-img ${incoming.className || ""}`}
-                  />
+                  <div
+                    className="logo-tint"
+                    style={{
+                      WebkitMaskImage: `url(${incoming.src})`,
+                      maskImage: `url(${incoming.src})`,
+                    }}
+                  >
+                    <img
+                      src={incoming.src}
+                      alt={incoming.alt}
+                      className={`logo-img ${incoming.className || ""}`}
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -105,9 +116,7 @@ export default function AnimatedLogoSlider() {
         })}
       </div>
 
-      {/* PRELOADER: Forces browser to cache all images immediately.
-         Solves the "Slide In" empty flash.
-      */}
+      {/* Keep the preloader */}
       <div
         style={{
           position: "absolute",
