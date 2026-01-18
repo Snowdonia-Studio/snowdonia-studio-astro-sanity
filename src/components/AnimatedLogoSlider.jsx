@@ -38,9 +38,7 @@ const logos = [
 ];
 
 const VISIBLE_COUNT = 3;
-// Duration in MS. Must match --anim-duration in CSS (0.8s)
 const ANIMATION_DURATION = 800;
-// Time to wait before starting next slide
 const PAUSE_DURATION = 1200;
 
 export default function AnimatedLogoSlider() {
@@ -50,7 +48,6 @@ export default function AnimatedLogoSlider() {
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimating(true);
-
       setTimeout(() => {
         setStartIdx((prev) => (prev + VISIBLE_COUNT) % logos.length);
         setAnimating(false);
@@ -58,9 +55,8 @@ export default function AnimatedLogoSlider() {
     }, ANIMATION_DURATION + PAUSE_DURATION);
 
     return () => clearInterval(interval);
-  }, [logos.length]);
+  }, []);
 
-  // Determine next logos outside the loop
   const currentLogos = Array.from({ length: VISIBLE_COUNT }).map(
     (_, i) => logos[(startIdx + i) % logos.length],
   );
@@ -70,51 +66,61 @@ export default function AnimatedLogoSlider() {
   );
 
   return (
-    <div className="logo-slider-row">
-      {currentLogos.map((current, i) => {
-        const incoming = nextLogos[i];
+    <>
+      <div className="logo-slider-row">
+        {currentLogos.map((current, i) => {
+          const incoming = nextLogos[i];
+          return (
+            <div
+              key={`slot-${i}`}
+              className="logo-slot"
+              style={{ width: `${100 / VISIBLE_COUNT}%` }}
+            >
+              {/* STABLE DOM: This div is ALWAYS rendered. 
+                 It switches between 'active' and 'up' classes.
+                 This prevents the "exit" flash. 
+              */}
+              <div className={`logo-slide ${animating ? "up" : "active"}`}>
+                <img
+                  src={current.src}
+                  alt={current.alt}
+                  className={`logo-img ${current.className || ""}`}
+                />
+              </div>
 
-        return (
-          <div
-            key={`slot-${i}`}
-            className="logo-slot"
-            style={{ width: `${100 / VISIBLE_COUNT}%` }}
-          >
-            {animating ? (
-              <>
-                {/* Leaving Logo */}
-                <div className="logo-slide up">
-                  <img
-                    src={current.src}
-                    alt={current.alt}
-                    // Combine standard class with optional specific class
-                    className={`logo-img ${current.className || ""}`}
-                  />
-                </div>
-                {/* Entering Logo */}
+              {/* INCOMING SLIDE: Only renders during animation.
+                 Because we preloaded images below, this will appear instantly.
+              */}
+              {animating && (
                 <div className="logo-slide down">
                   <img
                     src={incoming.src}
                     alt={incoming.alt}
-                    // Check incoming.className here
                     className={`logo-img ${incoming.className || ""}`}
                   />
                 </div>
-              </>
-            ) : (
-              /* Static Logo */
-              <div className="logo-slide active">
-                <img
-                  src={current.src}
-                  alt={current.alt}
-                  // Check current.className here
-                  className={`logo-img ${current.className || ""}`}
-                />
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* PRELOADER: Forces browser to cache all images immediately.
+         Solves the "Slide In" empty flash.
+      */}
+      <div
+        style={{
+          position: "absolute",
+          width: 0,
+          height: 0,
+          overflow: "hidden",
+          visibility: "hidden",
+        }}
+      >
+        {logos.map((logo) => (
+          <img key={logo.label} src={logo.src} alt={logo.label} />
+        ))}
+      </div>
+    </>
   );
 }

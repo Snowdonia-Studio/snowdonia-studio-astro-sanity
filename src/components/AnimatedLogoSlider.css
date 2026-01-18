@@ -31,17 +31,23 @@
 
 .logo-img {
   height: 35px;
-  color: var(--mint);
+  display: block;
+
+  /* Apply the Mint color filter */
   filter: brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(760%)
     hue-rotate(95deg) brightness(103%) contrast(102%)
     drop-shadow(0 2px 4px var(--logo-shadow));
 
+  /* CRITICAL FIX: Removed 'filter' from transition.
+     We want the logo to be Mint instantly, never transitioning 
+     from its original color.
+  */
   transition:
-    filter 300ms ease,
-    opacity 300ms ease,
-    transform 300ms ease;
+    transform 300ms ease,
+    opacity 300ms ease;
 }
 
+/* Ensure large logos (Salesforce) are sized correctly */
 .logo-img.logo-large {
   height: 100px;
 }
