@@ -21,9 +21,10 @@ const logos = [
   { src: "/assets/nextjs-logo.svg", alt: "Next.js", label: "NEXT.JS" },
   { src: "/assets/paypal-logo.svg", alt: "PayPal", label: "PayPal" },
   {
-    src: "/assets/salesforce-logo.svg",
+    src: "/assets/sf-logo.svg",
     alt: "Salesforce",
     label: "Salesforce",
+    className: "logo-large",
   },
   { src: "/assets/sanity-logo.svg", alt: "Sanity", label: "Sanity" },
   { src: "/assets/shopify-logo.svg", alt: "Shopify", label: "Shopify" },
@@ -86,7 +87,8 @@ export default function AnimatedLogoSlider() {
                   <img
                     src={current.src}
                     alt={current.alt}
-                    className="logo-img"
+                    // Combine standard class with optional specific class
+                    className={`logo-img ${current.className || ""}`}
                   />
                 </div>
                 {/* Entering Logo */}
@@ -94,14 +96,20 @@ export default function AnimatedLogoSlider() {
                   <img
                     src={incoming.src}
                     alt={incoming.alt}
-                    className="logo-img"
+                    // Check incoming.className here
+                    className={`logo-img ${incoming.className || ""}`}
                   />
                 </div>
               </>
             ) : (
               /* Static Logo */
               <div className="logo-slide active">
-                <img src={current.src} alt={current.alt} className="logo-img" />
+                <img
+                  src={current.src}
+                  alt={current.alt}
+                  // Check current.className here
+                  className={`logo-img ${current.className || ""}`}
+                />
               </div>
             )}
           </div>

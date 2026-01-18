@@ -42,6 +42,10 @@
     transform 300ms ease;
 }
 
+.logo-img.logo-large {
+  height: 100px;
+}
+
 .logo-slide {
   display: flex;
   justify-content: center;
