@@ -2,6 +2,7 @@
 import { loadQuery } from "../sanity/lib/load-query";
 import { urlForImage } from "../sanity/lib/url-for-image";
 import EmblaCarousel from "./EmblaCarousel.jsx";
+import AnimatedLogoSlider from "./AnimatedLogoSlider.jsx";
 import type { HomepageSection, HomepageData } from "../interfaces/Homepage.ts";
 import type { Post } from "../interfaces/Post.ts";
 import TEXT from "../constants.js";
@@ -127,6 +128,8 @@ const homepage = homepageQuery.data.result;
     )
   }
 
+  <AnimatedLogoSlider client:only="react" />
+  
   <!-- OUR SERVICES -->
   <section id="services" class="py-10 px-4 md:px-12">
     <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_SERVICES"]}</h2>
@@ -267,7 +270,7 @@ const homepage = homepageQuery.data.result;
     posts.length > 0 && (
       <section id="about" class="px-4 md:px-12 py-10">
         <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_THOUGHTS"]}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
           {posts.map((post) => (
             <div class="card w-full rounded overflow-hidden shadow-lg">
               <figure>

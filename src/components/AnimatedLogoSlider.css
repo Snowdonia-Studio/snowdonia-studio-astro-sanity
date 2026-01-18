@@ -1,0 +1,102 @@
+:root {
+  --mint: #7fffe0;
+  --logo-shadow: rgba(0, 0, 0, 0.6);
+  /* Centralize duration to ensure sync */
+  --anim-duration: 0.8s;
+}
+
+.logo-slider-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100px;
+  width: 50%;
+  margin: 0 auto;
+  min-width: 260px;
+  gap: 1rem; /* Use gap instead of reliance on margins */
+}
+
+/* NEW: This acts as the "Stage" for each individual logo slot */
+.logo-slot {
+  position: relative;
+  height: 100%;
+  /* Important: Hide the logo as it flies up out of the box */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-img {
+  height: 35px;
+  color: var(--mint);
+  filter: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(400%)
+    hue-rotate(140deg) brightness(105%) contrast(95%)
+    drop-shadow(0 2px 4px var(--logo-shadow));
+  display: block; /* Removes inline spacing issues */
+}
+
+.logo-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  /* CRITICAL FIX: Absolute positioning ensures 'up' and 'down' 
+     occupy the exact same physical space. */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* The active (static) slide also needs to be absolute to match the layout 
+   of the animating slides, preventing a jump when state switches. */
+.logo-slide.active {
+  z-index: 1;
+}
+
+.logo-slide.up {
+  z-index: 2;
+  animation: slideUpFadeOut var(--anim-duration) cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+.logo-slide.down {
+  z-index: 2;
+  animation: slideDownFadeIn var(--anim-duration) cubic-bezier(0.65, 0, 0.35, 1)
+    forwards;
+}
+
+@keyframes slideUpFadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px); /* Increased distance for cleaner exit */
+    opacity: 0;
+  }
+}
+
+@keyframes slideDownFadeIn {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-slider-row {
+    width: 90%;
+    gap: 0.5rem;
+  }
+  .logo-img {
+    height: 28px;
+  }
+}
