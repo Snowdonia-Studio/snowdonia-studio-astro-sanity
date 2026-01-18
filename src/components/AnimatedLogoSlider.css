@@ -14,6 +14,7 @@
   width: 50%;
   margin: 0 auto;
   min-width: 260px;
+  top: -25px;
   gap: 1rem; /* Use gap instead of reliance on margins */
 }
 
@@ -31,10 +32,14 @@
 .logo-img {
   height: 35px;
   color: var(--mint);
-  filter: brightness(0) saturate(100%) invert(72%) sepia(8%) saturate(400%)
-    hue-rotate(140deg) brightness(105%) contrast(95%)
+  filter: brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(760%)
+    hue-rotate(95deg) brightness(103%) contrast(102%)
     drop-shadow(0 2px 4px var(--logo-shadow));
-  display: block; /* Removes inline spacing issues */
+
+  transition:
+    filter 300ms ease,
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 
 .logo-slide {
@@ -95,6 +100,7 @@
   .logo-slider-row {
     width: 90%;
     gap: 0.5rem;
+    top: -25px;
   }
   .logo-img {
     height: 28px;
