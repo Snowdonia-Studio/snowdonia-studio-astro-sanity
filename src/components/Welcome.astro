@@ -2,6 +2,7 @@
 import { loadQuery } from "../sanity/lib/load-query";
 import { urlForImage } from "../sanity/lib/url-for-image";
 import EmblaCarousel from "./EmblaCarousel.jsx";
+import AnimatedLogoSlider from "./AnimatedLogoSlider.jsx";
 import type { HomepageSection, HomepageData } from "../interfaces/Homepage.ts";
 import type { Post } from "../interfaces/Post.ts";
 import TEXT from "../constants.js";
@@ -53,19 +54,18 @@ const homepage = homepageQuery.data.result;
 
 <div id="container">
   <main>
-    <section id="hero" class="h-screen">
-      <video
-        class="absolute top-0 left-0 w-full h-full object-cover"
-        src={homepage?.heroVideo?.asset?.url}
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="auto"></video>
-      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50">
-      </div>
+      <section id="hero" class="relative h-auto min-h-[60vh] md:h-screen flex flex-col justify-center mb-8">
+        <video
+          class="absolute top-0 left-0 w-full h-full object-cover"
+          src={homepage?.heroVideo?.asset?.url}
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"></video>
+        <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
       <div
-        class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 mt-20 pt-40"
+        class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 pt-32 pb-20 md:pt-40"
       >
         <h1 class="text-teal-200 mb-5">
           {homepage?.title}
@@ -127,6 +127,8 @@ const homepage = homepageQuery.data.result;
     )
   }
 
+  <AnimatedLogoSlider client:only="react" />
+  
   <!-- OUR SERVICES -->
   <section id="services" class="py-10 px-4 md:px-12">
     <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_SERVICES"]}</h2>
@@ -263,34 +265,43 @@ const homepage = homepageQuery.data.result;
   </section>
 
   <!-- OUR THOUGHTS -->
-  {
+ {
     posts.length > 0 && (
       <section id="about" class="px-4 md:px-12 py-10">
         <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_THOUGHTS"]}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {posts.map((post) => (
-            <div class="card w-full rounded overflow-hidden shadow-lg">
-              <figure>
-                <img
-                  class="w-[100%] max-h-[400px]"
-                  src={post.mainImage ? urlForImage(post.mainImage).url() : ""}
-                  alt={post.title}
-                />
-              </figure>
-              <div class="card-body">
-                <div class="card-title text-xl mb-2">{post.title}</div>
-                <p class="text-white text-base">
-                  {post.body?.[0]?.children?.[0]?.text ||
-                    "No description available."}
-                </p>
-                <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
-                  <a href={`/post/${post.slug.current}`}>
-                    {TEXT["READ_ARTICLE"]}
-                  </a>
-                </button>
+          {posts.map((post) => {
+            const rawText = post.body?.[0]?.children?.[0]?.text || "No description available.";
+            
+            const description = rawText.length > 250 
+              ? rawText.substring(0, 250) + "..." 
+              : rawText;
+
+            return (
+              <div class="card w-full rounded overflow-hidden shadow-lg">
+                <figure>
+                  <img
+                    class="w-[100%] max-h-[400px] object-cover"
+                    src={post.mainImage ? urlForImage(post.mainImage).url() : ""}
+                    alt={post.title}
+                  />
+                </figure>
+                <div class="card-body">
+                  <div class="card-title text-xl mb-2">{post.title}</div>
+                  
+                  <p class="text-white text-base">
+                    {description}
+                  </p>
+                  
+                  <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full w-fit">
+                    <a href={`/post/${post.slug.current}`}>
+                      {TEXT["READ_ARTICLE"]}
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     )
