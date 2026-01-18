@@ -54,19 +54,18 @@ const homepage = homepageQuery.data.result;
 
 <div id="container">
   <main>
-    <section id="hero" class="h-screen">
-      <video
-        class="absolute top-0 left-0 w-full h-full object-cover"
-        src={homepage?.heroVideo?.asset?.url}
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="auto"></video>
-      <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50">
-      </div>
+      <section id="hero" class="relative h-auto min-h-[60vh] md:h-screen flex flex-col justify-center mb-8">
+        <video
+          class="absolute top-0 left-0 w-full h-full object-cover"
+          src={homepage?.heroVideo?.asset?.url}
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"></video>
+        <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
       <div
-        class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 mt-20 pt-40"
+        class="relative z-10 items-center justify-center mx-auto max-w-screen-2xl px-4 md:px-12 pt-32 pb-20 md:pt-40"
       >
         <h1 class="text-teal-200 mb-5">
           {homepage?.title}
