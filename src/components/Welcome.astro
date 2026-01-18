@@ -265,34 +265,43 @@ const homepage = homepageQuery.data.result;
   </section>
 
   <!-- OUR THOUGHTS -->
-  {
+ {
     posts.length > 0 && (
       <section id="about" class="px-4 md:px-12 py-10">
         <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_THOUGHTS"]}</h2>
-  <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
-          {posts.map((post) => (
-            <div class="card w-full rounded overflow-hidden shadow-lg">
-              <figure>
-                <img
-                  class="w-[100%] max-h-[400px]"
-                  src={post.mainImage ? urlForImage(post.mainImage).url() : ""}
-                  alt={post.title}
-                />
-              </figure>
-              <div class="card-body">
-                <div class="card-title text-xl mb-2">{post.title}</div>
-                <p class="text-white text-base">
-                  {post.body?.[0]?.children?.[0]?.text ||
-                    "No description available."}
-                </p>
-                <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full">
-                  <a href={`/post/${post.slug.current}`}>
-                    {TEXT["READ_ARTICLE"]}
-                  </a>
-                </button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {posts.map((post) => {
+            const rawText = post.body?.[0]?.children?.[0]?.text || "No description available.";
+            
+            const description = rawText.length > 250 
+              ? rawText.substring(0, 250) + "..." 
+              : rawText;
+
+            return (
+              <div class="card w-full rounded overflow-hidden shadow-lg">
+                <figure>
+                  <img
+                    class="w-[100%] max-h-[400px] object-cover"
+                    src={post.mainImage ? urlForImage(post.mainImage).url() : ""}
+                    alt={post.title}
+                  />
+                </figure>
+                <div class="card-body">
+                  <div class="card-title text-xl mb-2">{post.title}</div>
+                  
+                  <p class="text-white text-base">
+                    {description}
+                  </p>
+                  
+                  <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full w-fit">
+                    <a href={`/post/${post.slug.current}`}>
+                      {TEXT["READ_ARTICLE"]}
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     )
