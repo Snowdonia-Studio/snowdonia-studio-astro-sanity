@@ -1,10 +1,11 @@
 const TEXT = {
-    'LETS_CHAT': "Let's Chat",
-    'OUR_PROCESS': "Our Process",
-    'OUR_THOUGHTS': "Our Thoughts",
-    'OUR_WORK': "Our Work",
-    'OUR_SERVICES': "Our Services",
-    'READ_ARTICLE': "Read Article",
-}
+  LETS_CHAT: "Let's Chat",
+  OUR_PROCESS: "Our Process",
+  OUR_THOUGHTS: "Our Thoughts",
+  OUR_WORK: "Our Work",
+  OUR_SERVICES: "Our Services",
+  READ_ARTICLE: "Read Article",
+  WHAT_WE_USE: "What We Use",
+};
 
 export default TEXT;

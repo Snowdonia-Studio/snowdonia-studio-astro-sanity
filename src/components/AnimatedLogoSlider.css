@@ -3,18 +3,6 @@
   --anim-duration: 0.8s;
 }
 
-.logo-slider-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  height: 100px;
-  width: 50%;
-  margin: 0 auto;
-  min-width: 260px;
-  gap: 1rem;
-}
-
 .logo-slot {
   position: relative;
   height: 100%;
@@ -108,9 +96,21 @@
   }
 }
 
+.logo-slider-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100px;
+  width: 100%;
+  margin: 0 auto;
+  min-width: 260px;
+  gap: 1rem;
+}
+
 @media (max-width: 600px) {
   .logo-slider-row {
-    width: 90%;
+    width: 80%;
     gap: 0.5rem;
   }
   .logo-img {

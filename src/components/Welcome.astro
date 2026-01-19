@@ -7,6 +7,12 @@ import type { HomepageSection, HomepageData } from "../interfaces/Homepage.ts";
 import type { Post } from "../interfaces/Post.ts";
 import TEXT from "../constants.js";
 
+// --- NEW IMPORTS HERE ---
+// Ensure these files exist in src/assets/
+import millstoneImg from "../assets/millstone-bbq-logo.webp";
+import buffaloImg from "../assets/hungry-buffalo-logo.webp";
+import oldDutche from '../assets/old-dutche-logo.webp';
+
 const postsQuery = await loadQuery<Post[]>({
   query: `*[_type == "post"]|order(publishedAt desc){
     _id,
@@ -72,7 +78,7 @@ const homepage = homepageQuery.data.result;
         </h1>
         {
           homepage?.subtitle && (
-            <h2 class="text-xl text-white mt-2">{homepage?.subtitle}</h2>
+            <h2 class="text-white mt-2">{homepage?.subtitle}</h2>
           )
         }
         {
@@ -82,7 +88,7 @@ const homepage = homepageQuery.data.result;
         }
         <section id="links">
           <button
-            class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full"
+            class="mt-4 bg-teal-200 text-black font-bold py-2 px-8 rounded-full"
           >
             <a href="/contact" class="inline-flex items-center"
               >{TEXT["LETS_CHAT"]}
@@ -127,17 +133,92 @@ const homepage = homepageQuery.data.result;
     )
   }
 
+  <section id="what-we-use" class="py-10 px-4 md:px-12">
+    <h2 class="mb-6">{TEXT["WHAT_WE_USE"]}</h2>
   <AnimatedLogoSlider client:only="react" />
-  
-  <!-- OUR SERVICES -->
+  </section>
+
+  <section class="py-10 px-4 md:px-12">
+    <h2 class="mb-6">{TEXT['OUR_WORK']}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      {/* Millstone BBQ - UPDATED */}
+      <div class="group block h-full">
+        <div class="relative flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-[#222222] p-8 transition-all duration-300">
+          <div class="mb-6 flex h-24 w-full items-center justify-center">
+            {/* Added: rounded-xl, bg-white, p-4 */}
+            <img 
+              class="h-full w-auto object-contain rounded-xl bg-white p-4" 
+              src={millstoneImg.src} 
+              alt="The Millstone BBQ" 
+            />
+          </div>
+
+          <div>
+            <h3 class="text-white mb-3 transition-colors">
+              The Millstone BBQ
+            </h3>
+            <p class="text-gray-300 leading-relaxed mb-8">
+              A custom Squarespace implementation for a premier BBQ destination, featuring full menu management and event integration.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Hungry Buffalo */}
+      <div class="group block h-full">
+        <div class="relative flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-[#222222] p-8 transition-all duration-300">
+          <div class="mb-6 flex h-24 w-full items-center justify-center">
+            <img 
+              class="h-full w-auto object-contain rounded-xl bg-white p-4" 
+              src={buffaloImg.src} 
+              alt="Hungry Buffalo" 
+            />
+          </div>
+          <div>
+            <h3 class="text-white mb-3 transition-colors">
+              Hungry Buffalo
+            </h3>
+            <p class="text-base text-gray-300 leading-relaxed mb-8">
+              A dynamic restaurant website built on Squarespace highlighting their unique atmosphere and menu offerings.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Old Dutche */}
+      <div class="group block h-full">
+        <div class="relative flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-[#222222] p-8 transition-all duration-300">
+          <div class="mb-6 flex h-24 w-full items-center justify-center">
+            <img 
+              class="h-full w-auto rounded-xl bg-white p-4" 
+              src={oldDutche.src} 
+              alt="The Olde Dutch" 
+            />
+          </div>
+          <div>
+            <h3 class="font-bold text-white mb-3 transition-colors">
+              The Olde Dutch
+            </h3>
+            <p class="text-base text-gray-300 leading-relaxed mb-8">
+              A classic restaurant website built on Squarespace ensuring the legacy of the brand meets modern web standards.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <section id="services" class="py-10 px-4 md:px-12">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_SERVICES"]}</h2>
+    <h2 class="mb-6">{TEXT["OUR_SERVICES"]}</h2>
+    
     <details
       class="collapse border-b-2 border-teal-200 rounded-none"
       name="my-accordion-det-1"
       open
     >
-      <summary class="collapse-title pl-0">01 E-Commerce</summary>
+      <summary class="collapse-title">E-Commerce</summary>
       <div class="collapse-content">
         <p>
           We have done everything from simple stores to complex multi-store
@@ -155,11 +236,12 @@ const homepage = homepageQuery.data.result;
         </ul>
       </div>
     </details>
+
     <details
       class="collapse border-b-2 border-teal-200 rounded-none"
       name="my-accordion-det-1"
     >
-      <summary class="collapse-title pl-0">02 Websites</summary>
+      <summary class="collapse-title">Websites</summary>
       <div class="collapse-content">
         Need a custom website or help with your existing website? We can help
         you with that too. Whether it is Squarespace, Wordpress, or something
@@ -173,11 +255,12 @@ const homepage = homepageQuery.data.result;
         </ul>
       </div>
     </details>
+
     <details
       class="collapse border-b-2 border-teal-200 rounded-none"
       name="my-accordion-det-1"
     >
-      <summary class="collapse-title pl-0">03 UX / UI Design</summary>
+      <summary class="collapse-title">UX / UI Design</summary>
       <div class="collapse-content">
         Need a custom design for your website or app? We can help you with that
         too. At Snowdonia we love using Figma to create designs that are both
@@ -196,35 +279,19 @@ const homepage = homepageQuery.data.result;
         </ul>
       </div>
     </details>
+
+    <div class="mt-8">
+      <button class="bg-teal-200 text-black font-bold py-2 px-8 rounded-full">
+        <a href="/calculator">
+          View Our Pricing Calculator
+        </a>
+      </button>
+    </div>
+    
   </section>
 
-  <!-- OUR WORK -->
-  <!-- <section class="py-10 pl-4 md:pl-12">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT['OUR_WORK']}</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="card">
-        <figure><img src="https://placehold.co/600x400" alt="Placeholder" /></figure><div class="card-body">
-          <div class="card-title">Card Title</div><p>Card Description</p>
-        </div>
-      </div>
-      <div class="card">
-        <figure><img src="https://placehold.co/600x400" alt="Placeholder" /></figure><div class="card-body">
-          <div class="card-title">Card Title</div>
-          <div class="badge badge-secondary">SquareSpace</div>
-          <p>Card Description</p>
-        </div>
-      </div>
-      <div class="card">
-        <figure><img src="https://placehold.co/600x400" alt="Placeholder" /></figure><div class="card-body">
-          <div class="card-title">Card Title</div><p>Card Description</p>
-        </div>
-      </div>
-    </div>
-  </section> -->
-
-  <!-- OUR PROCESS -->
-  <section id="work" class="py-10 pl-4 md:pl-12">
-    <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_PROCESS"]}</h2>
+  <section id="work" class="py-10 px-4 md:px-12">
+    <h2 class="mb-6">{TEXT["OUR_PROCESS"]}</h2>
     {
       (() => {
         const slides = [
@@ -264,11 +331,10 @@ const homepage = homepageQuery.data.result;
     }
   </section>
 
-  <!-- OUR THOUGHTS -->
- {
+  {
     posts.length > 0 && (
       <section id="about" class="px-4 md:px-12 py-10">
-        <h2 class="text-2xl font-semibold mb-6">{TEXT["OUR_THOUGHTS"]}</h2>
+        <h2 class="mb-6">{TEXT["OUR_THOUGHTS"]}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {posts.map((post) => {
             const rawText = post.body?.[0]?.children?.[0]?.text || "No description available.";
@@ -293,7 +359,7 @@ const homepage = homepageQuery.data.result;
                     {description}
                   </p>
                   
-                  <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-4 rounded-full w-fit">
+                  <button class="mt-4 bg-teal-200 text-black font-bold py-2 px-8 rounded-full w-fit">
                     <a href={`/post/${post.slug.current}`}>
                       {TEXT["READ_ARTICLE"]}
                     </a>

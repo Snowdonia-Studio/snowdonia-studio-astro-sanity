@@ -1,0 +1,409 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Layout>
+  <Header />
+  <main class="bg-neutral-900 min-h-screen flex flex-col items-center pt-14 px-1 font-sans">
+    <!-- Main Calculator Layout: Left = tabbed content, Right = pricing/result card -->
+    <div class="max-w-6xl w-full flex flex-col md:flex-row gap-8 pt-14 mt-14 mb-14">
+      <section class="flex-1">
+        <h1 class="text-4xl md:text-5xl font-black text-teal-200 mb-8 flex items-center gap-3 tracking-tight">
+          Website calculator
+          <span class="relative inline-block h-4">
+            <svg width="90" height="16" viewBox="0 0 90 16" fill="none" class="absolute left-0 top-2">
+              <path d="M2 10 Q 20 2, 40 10 T 80 10" stroke="#38bdf8" stroke-width="3" fill="none" />
+            </svg>
+          </span>
+        </h1>
+        <p class="text-neutral-100 mb-4 max-w-2xl text-lg">
+          Use our calculator below to get an estimated cost for your web design project. This tool provides approximate pricing based on your selected requirements and serves as a starting point for planning your project. The results provided by this calculator are estimates only and do not constitute a binding commercial offer or final quote.
+        </p>
+        <p class="font-bold text-white mb-10 max-w-2xl">If your budget doesn’t align with our costs, we’re happy to discuss alternative solutions to work together.</p>
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-8 w-full max-w-6xl mx-auto">
+          <button id="tabWebsite" class="tab-btn font-black text-lg px-6 py-3 rounded-t-lg border-b-4 border-teal-200 bg-neutral-800 text-teal-200">New Build</button>
+          <button id="tabRetainer" class="tab-btn font-black text-lg px-6 py-3 rounded-t-lg border-b-4 border-transparent bg-neutral-900 text-neutral-400">Maintenance</button>
+        </div>
+        <!-- Tabbed Content: Only this switches -->
+        <div>
+          <div id="websiteSection">
+            <!-- Site Type Cards -->
+            <div class="flex gap-4 mb-6">
+              <button id="standardBtn" class="flex-1 rounded-xl px-6 py-5 text-left border-2 transition-all bg-neutral-800 border-teal-200 text-white shadow-lg font-bold">
+                <div class="text-lg font-black mb-1 text-teal-200">Standard Website</div>
+                <div class="text-base text-white">Ideal if you want a clean, efficient site using only native features.</div>
+              </button>
+              <button id="customBtn" class="flex-1 rounded-xl px-6 py-5 text-left border-2 transition-all bg-neutral-900 border-neutral-700 text-neutral-400 font-bold">
+                <div class="text-lg font-black mb-1 text-teal-200">Custom Website</div>
+                <div class="text-base text-white">Perfect for a tailored experience, with advanced design and feature customisation.</div>
+              </button>
+            </div>
+            <!-- Features -->
+            <div class="mb-2 font-black text-teal-200 text-lg pt-4">Which extra Features do you need?</div>
+            <div class="flex flex-wrap gap-3 mb-3 py-2" id="features">
+              <button class="rounded-full px-5 py-2 text-base font-bold border-2 bg-neutral-800 text-white border-teal-200" data-value="ecommerce">eCommerce</button>
+              <button class="rounded-full px-5 py-2 text-base font-bold border-2 bg-neutral-800 text-white border-teal-200" data-value="events">Events</button>
+              <button class="rounded-full px-5 py-2 text-base font-bold border-2 bg-neutral-800 text-white border-teal-200" data-value="blog">Blog</button>
+              <button class="rounded-full px-5 py-2 text-base font-bold border-2 bg-neutral-800 text-white border-teal-200" data-value="elearning">eLearning</button>
+              <button class="rounded-full px-5 py-2 text-base font-bold border-2 bg-neutral-800 text-white border-teal-200" data-value="appointment">Appointment</button>
+              <button class="rounded-full px-5 py-2 text-base font-bold border-2 bg-neutral-800 text-white border-teal-200" data-value="storelocator">Store Locator</button>
+            </div>
+            <div class="bg-neutral-800 text-neutral-100 text-xs rounded-lg px-4 py-2 mb-6 border border-teal-200">
+              For custom features that are not listed in this form, please contact the web design team.
+            </div>
+            <!-- Page Count Slider -->
+            <div class="mb-2 font-black text-teal-200 text-lg pt-4">How many pages do you have?</div>
+            <div class="flex items-center gap-4 mb-2">
+              <input type="range" min="1" max="20" value="10" id="pages" class="accent-teal-200 w-48" />
+              <span class="text-lg font-black text-teal-200" id="pagesValue">10</span>
+            </div>
+            <div class="bg-neutral-800 text-neutral-100 text-xs rounded-lg px-4 py-2 mb-6 border border-teal-200">
+              For projects of more than 20 pages, please contact the web design team
+            </div>
+          </div>
+          <div id="retainerSection" style="display:none;">
+            <div class="flex gap-4 mb-6 w-[50%]">
+              <button id="retainerBtn" class="flex-1 rounded-xl px-6 py-5 text-left border-2 transition-all bg-neutral-800 border-teal-200 text-white shadow-lg font-bold border-teal-200">
+                <div class="text-lg font-black mb-1 text-teal-200">Retainer Work</div>
+                <div class="text-base text-white">Ongoing design, development, or support for your business. Purchase blocks of hours for complete flexibility.</div>
+              </button>
+            </div>
+            <div class="mb-2 font-black text-teal-200 text-lg pt-4">How many hours do you need?</div>
+            <div class="flex items-center gap-4 mb-2">
+              <input type="range" min="20" max="80" step="5" value="20" id="retainerHours" class="accent-teal-200 w-48" />
+              <span class="text-lg font-black text-teal-200" id="retainerHoursValue">20</span>
+            </div>
+            <div class="bg-neutral-800 text-neutral-100 text-xs rounded-lg px-4 py-2 mb-6 border border-teal-200 font-normal">
+              Minimum 20 hours per block. You can increase in increments of 5 hours.
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <aside class="w-full md:w-[350px] flex-shrink-0 relative">
+        <div class="bg-neutral-800 rounded-2xl shadow-xl border-2 border-teal-200 px-8 py-7 text-white relative" id="resultCard">
+          <div class="text-xs text-teal-200 mb-2 font-bold" id="resultTotalLabel">TOTAL</div>
+          <div class="text-4xl font-black mb-2 text-teal-200" id="totalHours">125 Hours</div>
+          <div class="text-2xl font-black mb-1 text-white" id="totalPrice">$13,685</div>
+          <div class="border-t border-teal-200 pt-3 mt-3 text-base">
+            <div class="font-black mb-1 text-teal-200">Included in your pack:</div>
+            <ul class="list-disc ml-5 text-white" id="includedPack">
+              <!-- Content will be set by JS -->
+            </ul>
+          </div>
+          <div class="my-6 w-full max-w-2xl mx-auto text-center">
+          <a
+            href={import.meta.env.GOOGLE_CLIENT_EMAIL}
+            target="_blank"
+            rel="noopener"
+            class="mt-6 w-full bg-teal-200 text-black font-black py-3 rounded-xl text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-teal-100 transition"
+          >
+            Schedule a Meeting
+          </a>
+        </div>
+        </div>
+      </aside>
+    </div>
+    <!-- Retainer Work Section -->
+    <div id="retainerSection" style="display:none;">
+      <div class="max-w-6xl w-full flex flex-col md:flex-row gap-8 mt-0">
+        <section class="flex-1">
+          <div class="bg-neutral-800 rounded-2xl shadow-xl border-2 border-teal-200 px-8 py-7 text-white relative">
+            <div class="text-3xl font-black text-teal-200 mb-2 flex items-center gap-3 tracking-tight">
+              Retainer Work
+            </div>
+            <div class="text-base text-white mb-4">Ongoing design, development, or support for your business. Purchase blocks of hours for complete flexibility.</div>
+            <div class="mb-2 font-black text-teal-200 text-lg">How many hours do you need?</div>
+            <div class="flex items-center gap-4 mb-2">
+              <input type="range" min="20" max="80" step="5" value="20" id="retainerHours" class="accent-teal-200 w-48" />
+              <span class="text-lg font-black text-teal-200" id="retainerHoursValue">20</span>
+            </div>
+            <div class="bg-neutral-900 text-neutral-100 text-xs rounded-lg px-4 py-2 mb-6 border border-teal-200">
+              Minimum 20 hours per block. You can increase in increments of 5 hours.
+            </div>
+            <div class="border-t border-teal-200 pt-3 mt-3 text-base">
+              <div class="font-black mb-1 text-teal-200">Included in your pack:</div>
+              <ul class="list-disc ml-5 text-white">
+                <li>Block of hours (customizable)</li>
+                <li>Completely custom to your needs (design, development, support, etc.)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <aside class="w-full md:w-[350px] flex-shrink-0 relative">
+          <div class="bg-neutral-800 rounded-2xl shadow-xl border-2 border-teal-200 px-8 py-7 text-white relative flex flex-col justify-between h-full">
+            <div>
+              <div class="text-xs text-teal-200 mb-2 font-bold">TOTAL</div>
+              <div class="text-4xl font-black mb-2 text-teal-200" id="retainerTotalHours">20 Hours</div>
+              <div class="text-2xl font-black mb-1 text-white" id="retainerTotalPrice">$1,700</div>
+            </div>
+            <a href="/contact">
+              <button type="button" class="mt-6 w-full bg-teal-200 text-black font-black py-3 rounded-xl text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-teal-100 transition">
+                Discuss your project
+                <span class="inline-block">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </button>
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // State
+        let siteType = 'standard'; // Default to standard website
+        let features: any[] = [];
+        let packs: any[] = [];
+        let pages = 5; // Default pages for standard website
+        let currency = 'USD';
+        // Elements
+        const customBtn = document.getElementById('customBtn');
+        const standardBtn = document.getElementById('standardBtn');
+        const featuresEl = document.getElementById('features');
+        const packsEl = document.getElementById('packs');
+        const pagesEl = document.getElementById('pages');
+        const pagesValue = document.getElementById('pagesValue');
+        const currencyEl = document.getElementById('currency');
+        const totalHoursEl = document.getElementById('totalHours');
+        const totalPriceEl = document.getElementById('totalPrice');
+
+        // Feature toggles
+        if (featuresEl) {
+          featuresEl.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const val = btn.getAttribute('data-value');
+              if (features.includes(val)) {
+                features = features.filter(f => f !== val);
+                btn.classList.remove('bg-teal-200', 'text-black', 'border-teal-200', 'shadow');
+                btn.classList.add('bg-neutral-800', 'text-white', 'border-teal-200');
+              } else {
+                features.push(val);
+                btn.classList.add('bg-teal-200', 'text-black', 'border-teal-200', 'shadow');
+                btn.classList.remove('bg-neutral-800', 'text-white', 'border-teal-200');
+              }
+              updateResult();
+            });
+          });
+        }
+        // Pack toggles
+        if (packsEl) {
+          packsEl.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const val = btn.getAttribute('data-value');
+              if (packs.includes(val)) {
+                packs = packs.filter(f => f !== val);
+                btn.classList.remove('bg-teal-200', 'text-black', 'border-teal-200', 'shadow');
+                btn.classList.add('bg-neutral-800', 'text-white', 'border-teal-200');
+              } else {
+                packs.push(val);
+                btn.classList.add('bg-teal-200', 'text-black', 'border-teal-200', 'shadow');
+                btn.classList.remove('bg-neutral-800', 'text-white', 'border-teal-200');
+              }
+              updateResult();
+            });
+          });
+        }
+        // Site type toggles (custom/standard only)
+        if (customBtn && standardBtn) {
+          customBtn.addEventListener('click', () => {
+            siteType = 'custom';
+            pages = 10;
+            if (pagesEl && pagesValue) {
+              (pagesEl as HTMLInputElement).value = '10';
+              pagesValue.textContent = '10';
+            }
+            customBtn.classList.add('bg-neutral-800', 'border-teal-200', 'text-white', 'shadow-lg');
+            customBtn.classList.remove('bg-neutral-900', 'border-neutral-700', 'text-neutral-400');
+            standardBtn.classList.remove('bg-neutral-800', 'border-teal-200', 'text-white', 'shadow-lg');
+            standardBtn.classList.add('bg-neutral-900', 'border-neutral-700', 'text-neutral-400');
+            updateResult();
+          });
+          standardBtn.addEventListener('click', () => {
+            siteType = 'standard';
+            pages = 5;
+            if (pagesEl && pagesValue) {
+              (pagesEl as HTMLInputElement).value = '5';
+              pagesValue.textContent = '5';
+            }
+            standardBtn.classList.add('bg-neutral-800', 'border-teal-200', 'text-white', 'shadow-lg');
+            standardBtn.classList.remove('bg-neutral-900', 'border-neutral-700', 'text-neutral-400');
+            customBtn.classList.remove('bg-neutral-800', 'border-teal-200', 'text-white', 'shadow-lg');
+            customBtn.classList.add('bg-neutral-900', 'border-neutral-700', 'text-neutral-400');
+            updateResult();
+          });
+        }
+
+        // Calculation logic and included pack update (for both modes)
+        function updateResult(mode: 'website' | 'retainer' | null = null) {
+          // mode: 'website' | 'retainer' | null (auto-detect)
+          const isRetainer = (mode === 'retainer') || (document.getElementById('retainerSection')?.style.display !== 'none');
+          const includedPack = document.getElementById('includedPack');
+          const totalHoursEl = document.getElementById('totalHours');
+          const totalPriceEl = document.getElementById('totalPrice');
+          const resultTotalLabel = document.getElementById('resultTotalLabel');
+          if (isRetainer) {
+            // Retainer mode
+            const retainerHoursEl = document.getElementById('retainerHours') as HTMLInputElement | null;
+            const hours = retainerHoursEl ? parseInt(retainerHoursEl.value, 10) : 20;
+            const hourlyRate = 80;
+            const total = hours * hourlyRate;
+            if (totalHoursEl) totalHoursEl.textContent = `${hours} Hours`;
+            if (totalPriceEl) totalPriceEl.textContent = `$${total.toLocaleString()}`;
+            if (includedPack) {
+              includedPack.innerHTML = `
+                <li>Block of hours (customizable)</li>
+                <li>Completely custom to your needs (design, development, support, etc.)</li>
+              `;
+            }
+            if (resultTotalLabel) resultTotalLabel.textContent = 'TOTAL';
+          } else {
+            // Website calculator mode
+            let baseHours, featureHours, pageHours, packHours, totalHours;
+            let hourlyRate = 85;
+            let totalPrice;
+            if (siteType === 'custom') {
+              baseHours = 100;
+              featureHours = features.length * 5;
+              pageHours = Math.max(0, pages - 10) * 2;
+              packHours = packs.length * 5;
+              totalHours = baseHours + featureHours + pageHours + packHours;
+              totalPrice = Math.round(totalHours * hourlyRate);
+            } else if (siteType === 'standard') {
+              baseHours = 60;
+              featureHours = features.length * 5;
+              pageHours = Math.max(0, pages - 10) * 2;
+              packHours = packs.length * 5;
+              totalHours = baseHours + featureHours + pageHours + packHours;
+              totalPrice = Math.round(totalHours * hourlyRate);
+            }
+            if (totalHoursEl) totalHoursEl.textContent = `${totalHours} Hours`;
+            if (totalPriceEl && totalPrice !== undefined) totalPriceEl.textContent = `${currency === 'USD' ? '$' : currency === 'GBP' ? '£' : '€'}${totalPrice.toLocaleString()}`;
+            if (includedPack) {
+              if (siteType === 'custom') {
+                includedPack.innerHTML = `
+                  <li>Sitemap</li>
+                  <li>10 page templates</li>
+                  <li>Wireframes</li>
+                  <li>Custom theme integration</li>
+                  <li>Responsive layout</li>
+                  <li>Testing & go-live</li>
+                  <li>Training</li>
+                `;
+              } else if (siteType === 'standard') {
+                includedPack.innerHTML = `
+                  <li>Sitemap</li>
+                  <li>5 page templates</li>
+                  <li>Responsive layout</li>
+                  <li>Testing & go-live</li>
+                  <li>Training</li>
+                `;
+              }
+            }
+            if (resultTotalLabel) resultTotalLabel.textContent = 'TOTAL';
+          }
+        }
+        updateResult();
+
+        // Retainer slider logic (update right panel too)
+        const retainerHoursEl = document.getElementById('retainerHours') as HTMLInputElement | null;
+        const retainerHoursValue = document.getElementById('retainerHoursValue');
+        if (retainerHoursEl && retainerHoursValue) {
+          function updateRetainer() {
+            if (retainerHoursEl && retainerHoursValue) {
+              retainerHoursValue.textContent = String(retainerHoursEl.value);
+              updateResult('retainer');
+            }
+          }
+          retainerHoursEl.addEventListener('input', updateRetainer);
+          updateRetainer(); // Ensure correct value on load
+        }
+
+        // Page count slider logic
+        if (pagesEl && pagesValue) {
+          function updatePages() {
+            if (pagesValue) {
+              pagesValue.textContent = String((pagesEl as HTMLInputElement).value);
+              updateResult('website');
+            }
+          }
+          pagesEl.addEventListener('input', updatePages);
+          updatePages(); // Ensure correct value on load
+        }
+
+        if (pagesEl && pagesValue) {
+          pagesEl.addEventListener('input', () => {
+            pages = parseInt((pagesEl as HTMLInputElement).value, 10);
+            pagesValue.textContent = pages.toString();
+            updateResult();
+          });
+        }
+
+        const tabWebsite = document.getElementById('tabWebsite') as HTMLButtonElement | null;
+        const tabRetainer = document.getElementById('tabRetainer') as HTMLButtonElement | null;
+        const websiteSection = document.getElementById('websiteSection');
+        const retainerSection = document.getElementById('retainerSection');
+        if (tabWebsite && tabRetainer && websiteSection && retainerSection) {
+          tabWebsite.type = 'button';
+          tabRetainer.type = 'button';
+          tabWebsite.addEventListener('click', function(e) {
+            e.preventDefault();
+            tabWebsite.classList.add('border-teal-200', 'bg-neutral-800', 'text-teal-200');
+            tabWebsite.classList.remove('border-transparent', 'bg-neutral-900', 'text-neutral-400');
+            tabRetainer.classList.remove('border-teal-200', 'bg-neutral-800', 'text-teal-200');
+            tabRetainer.classList.add('border-transparent', 'bg-neutral-900', 'text-neutral-400');
+            websiteSection.style.display = '';
+            retainerSection.style.display = 'none';
+            updateResult('website');
+          });
+          tabRetainer.addEventListener('click', function(e) {
+            e.preventDefault();
+            tabRetainer.classList.add('border-teal-200', 'bg-neutral-800', 'text-teal-200');
+            tabRetainer.classList.remove('border-transparent', 'bg-neutral-900', 'text-neutral-400');
+            tabWebsite.classList.remove('border-teal-200', 'bg-neutral-800', 'text-teal-200');
+            tabWebsite.classList.add('border-transparent', 'bg-neutral-900', 'text-neutral-400');
+            websiteSection.style.display = 'none';
+            retainerSection.style.display = '';
+            updateResult('retainer');
+          });
+        }
+
+        const contactBtnLink = document.getElementById('contactBtnLink');
+        const contactBtn = document.getElementById('contactBtn');
+        if (contactBtnLink) {
+          contactBtnLink.addEventListener('click', function(e) {
+            const params = new URLSearchParams();
+            const isRetainer = (typeof siteType !== 'undefined' && siteType === 'retainer') || (document.getElementById('retainerSection')?.style.display !== 'none');
+            if (isRetainer) {
+              params.set('siteType', 'retainer');
+              const retainerHoursEl = document.getElementById('retainerHours');
+              if (retainerHoursEl) {
+                params.set('hours', (retainerHoursEl as HTMLInputElement).value);
+              }
+            } else {
+              if (typeof siteType !== 'undefined') params.set('siteType', siteType);
+              if (typeof features !== 'undefined' && features.length) params.set('features', features.join(','));
+              if (typeof packs !== 'undefined' && packs.length) params.set('packs', packs.join(','));
+              if (typeof pages !== 'undefined') params.set('pages', pages.toString());
+            }
+            (contactBtnLink as HTMLAnchorElement).href = '/schedule?' + params.toString();
+          });
+        }
+        if (contactBtn) {
+          contactBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Removed Calendly logic
+          });
+        }
+      });
+    </script>
+  </main>
+  <Footer />
+</Layout>
