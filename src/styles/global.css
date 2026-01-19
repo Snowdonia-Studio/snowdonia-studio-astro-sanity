@@ -4,46 +4,62 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-    html {
-        font-family: Arial, sans-serif;
-    }
+  html {
+    font-family: Arial, sans-serif;
+  }
 
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Arial Black', sans-serif;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Arial Black", sans-serif;
+  }
 
+  h1 {
+    font-size: var(--text-4xl);
+  }
+
+  @media (min-width: 768px) {
     h1 {
+      font-size: var(--text-6xl);
+    }
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+  }
+
+  @media (min-width: 768px) {
+    h2 {
       font-size: var(--text-4xl);
     }
+  }
 
-    @media (min-width: 768px) {
-      h1 {
-        font-size: var(--text-6xl);
-      }
-    }
+  h3 {
+    font-size: var(--text-xl);
+  }
 
-    h2 {
-      font-size: var(--text-2xl);
-    }
+  h4 {
+    font-size: var(--text-lg);
+  }
 
-    h3 {
-      font-size: var(--text-xl);
-    }
+  h5 {
+    font-size: var(--text-base);
+  }
 
-    h4 {
-      font-size: var(--text-lg);
-    }
-
-    h5 {
-      font-size: var(--text-base);
-    }
-
-    h6 {
-      font-size: var(--text-sm);
-    }
+  h6 {
+    font-size: var(--text-sm);
+  }
 }
 
 .collapse-title {
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Adjust as needed to match gap-2 */
+  font-weight: bold;
   font-size: var(--text-2xl);
 }
 

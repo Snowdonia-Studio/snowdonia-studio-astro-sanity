@@ -1,12 +1,10 @@
 <!doctype html>
 <html lang="en" class="dark">
   <head>
+    <title>Snowdonia Studio | Web Development & Design Experts</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Snowdonia Studio</title>
-
     <script>
       // On page load or when changing themes, best to add inline in `head` to avoid FOUC
       document.documentElement.classList.toggle(
@@ -20,6 +18,41 @@
       localStorage.theme = 'dark';
       // Whenever the user explicitly chooses to respect the OS preference
       localStorage.removeItem('theme');
+    </script>
+    <meta name="description" content="Snowdonia Studio specializes in modern web development and design, creating responsive, user-friendly websites to elevate your online presence." />
+    <meta name="keywords" content="Snowdonia, Snowdonia Studio, web development, web design, responsive websites, modern websites, development services, digital solutions, website design, website development" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Snowdonia Studio | Web Development & Design Experts" />
+    <meta property="og:description" content="Snowdonia Studio specializes in modern web development and design, creating responsive, user-friendly websites to elevate your online presence." />
+    <meta property="og:image" content="/public/favicon.svg" />
+    <meta property="og:url" content="https://snowdoniastudio.com" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://snowdoniastudio.com" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Snowdonia Studio",
+        "url": "https://snowdoniastudio.com",
+        "logo": "/public/favicon.svg",
+        "description": "Snowdonia Studio specializes in modern web development and design, creating responsive, user-friendly websites to elevate your online presence.",
+        "sameAs": [
+          "https://www.linkedin.com/company/snowdonia-studio"
+        ],
+        "service": [
+          {
+            "@type": "Service",
+            "name": "Web Development",
+            "description": "Custom web development services tailored to your business needs."
+          },
+          {
+            "@type": "Service",
+            "name": "Web Design",
+            "description": "Modern, responsive web design to enhance user experience."
+          }
+        ]
+      }
     </script>
   </head>
   <body class="bg-neutral-900 text-white">

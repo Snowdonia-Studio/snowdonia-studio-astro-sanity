@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AnimatedLogoSlider.css";
+import TEXT from "../constants";
 
 const logos = [
   { src: "/assets/adyen-logo.svg", alt: "Adyen", label: "Adyen" },
@@ -37,13 +38,28 @@ const logos = [
   { src: "/assets/yotpo-logo.svg", alt: "Yotpo", label: "Yotpo" },
 ];
 
-const VISIBLE_COUNT = 3;
+function getVisibleCount() {
+  if (typeof window !== "undefined") {
+    return window.innerWidth <= 768 ? 2 : window.innerWidth <= 1168 ? 4 : 5;
+  }
+  return 6;
+}
+
 const ANIMATION_DURATION = 800;
 const PAUSE_DURATION = 1200;
 
 export default function AnimatedLogoSlider() {
   const [cycle, setCycle] = useState(0);
   const [animating, setAnimating] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(getVisibleCount());
+
+  useEffect(() => {
+    function handleResize() {
+      setVisibleCount(getVisibleCount());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,14 +76,14 @@ export default function AnimatedLogoSlider() {
   const isBufferAActive = cycle % 2 === 0;
 
   const idxA = isBufferAActive
-    ? cycle * VISIBLE_COUNT
-    : (cycle + 1) * VISIBLE_COUNT;
+    ? cycle * visibleCount
+    : (cycle + 1) * visibleCount;
   const idxB = !isBufferAActive
-    ? cycle * VISIBLE_COUNT
-    : (cycle + 1) * VISIBLE_COUNT;
+    ? cycle * visibleCount
+    : (cycle + 1) * visibleCount;
 
   const getLogos = (startIndex) => {
-    return Array.from({ length: VISIBLE_COUNT }).map(
+    return Array.from({ length: visibleCount }).map(
       (_, i) => logos[(startIndex + i) % logos.length],
     );
   };
@@ -78,12 +94,12 @@ export default function AnimatedLogoSlider() {
   return (
     <>
       <div className="logo-slider-row">
-        {Array.from({ length: VISIBLE_COUNT }).map((_, i) => {
+        {Array.from({ length: visibleCount }).map((_, i) => {
           return (
             <div
               key={`slot-${i}`}
               className="logo-slot"
-              style={{ width: `${100 / VISIBLE_COUNT}%` }}
+              style={{ width: `${100 / visibleCount}%` }}
             >
               <LogoSlide
                 logo={bufferALogos[i]}

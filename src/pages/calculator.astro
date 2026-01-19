@@ -7,9 +7,9 @@ import '../styles/global.css';
 
 <Layout>
   <Header />
-  <main class="bg-neutral-900 min-h-screen flex flex-col items-center py-12 px-1 font-sans">
+  <main class="bg-neutral-900 min-h-screen flex flex-col items-center pt-14 px-1 font-sans">
     <!-- Main Calculator Layout: Left = tabbed content, Right = pricing/result card -->
-    <div class="max-w-6xl w-full flex flex-col md:flex-row gap-8 pt-12">
+    <div class="max-w-6xl w-full flex flex-col md:flex-row gap-8 pt-14 mt-14 mb-14">
       <section class="flex-1">
         <h1 class="text-4xl md:text-5xl font-black text-teal-200 mb-8 flex items-center gap-3 tracking-tight">
           Website calculator
@@ -95,19 +95,9 @@ import '../styles/global.css';
               <!-- Content will be set by JS -->
             </ul>
           </div>
-          <!-- <a id="contactBtnLink" href="https://calendar.app.google/zGK1M4KPc2YS9Z5w8" target="_blank" rel="noopener">
-            <button id="contactBtn" type="button" class="mt-6 w-full bg-teal-200 text-black font-black py-3 rounded-xl text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-teal-100 transition">
-              Schedule a Meeting
-              <span class="inline-block">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </span>
-            </button>
-          </a> -->
-                  <div class="my-6 w-full max-w-2xl mx-auto text-center">
+          <div class="my-6 w-full max-w-2xl mx-auto text-center">
           <a
-            href="https://calendar.app.google/zGK1M4KPc2YS9Z5w8"
+            href={import.meta.env.GOOGLE_CLIENT_EMAIL}
             target="_blank"
             rel="noopener"
             class="mt-6 w-full bg-teal-200 text-black font-black py-3 rounded-xl text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-teal-100 transition"
@@ -302,7 +292,6 @@ import '../styles/global.css';
                   <li>Sitemap</li>
                   <li>10 page templates</li>
                   <li>Wireframes</li>
-                  <li>Prototype</li>
                   <li>Custom theme integration</li>
                   <li>Responsive layout</li>
                   <li>Testing & go-live</li>
@@ -312,7 +301,6 @@ import '../styles/global.css';
                 includedPack.innerHTML = `
                   <li>Sitemap</li>
                   <li>5 page templates</li>
-                  <li>Professional design with the website builder</li>
                   <li>Responsive layout</li>
                   <li>Testing & go-live</li>
                   <li>Training</li>
@@ -350,7 +338,6 @@ import '../styles/global.css';
           updatePages(); // Ensure correct value on load
         }
 
-        // Add event listener for page count slider
         if (pagesEl && pagesValue) {
           pagesEl.addEventListener('input', () => {
             pages = parseInt((pagesEl as HTMLInputElement).value, 10);
@@ -359,7 +346,6 @@ import '../styles/global.css';
           });
         }
 
-        // Tab logic
         const tabWebsite = document.getElementById('tabWebsite') as HTMLButtonElement | null;
         const tabRetainer = document.getElementById('tabRetainer') as HTMLButtonElement | null;
         const websiteSection = document.getElementById('websiteSection');
@@ -389,28 +375,25 @@ import '../styles/global.css';
           });
         }
 
-        // Add this at the end of your DOMContentLoaded or main script
         const contactBtnLink = document.getElementById('contactBtnLink');
         const contactBtn = document.getElementById('contactBtn');
         if (contactBtnLink) {
           contactBtnLink.addEventListener('click', function(e) {
-            // Gather calculator selections
             const params = new URLSearchParams();
-            // Detect if retainer tab is active
             const isRetainer = (typeof siteType !== 'undefined' && siteType === 'retainer') || (document.getElementById('retainerSection')?.style.display !== 'none');
             if (isRetainer) {
               params.set('siteType', 'retainer');
               const retainerHoursEl = document.getElementById('retainerHours');
               if (retainerHoursEl) {
-                params.set('hours', retainerHoursEl.value);
+                params.set('hours', (retainerHoursEl as HTMLInputElement).value);
               }
             } else {
               if (typeof siteType !== 'undefined') params.set('siteType', siteType);
               if (typeof features !== 'undefined' && features.length) params.set('features', features.join(','));
               if (typeof packs !== 'undefined' && packs.length) params.set('packs', packs.join(','));
-              if (typeof pages !== 'undefined') params.set('pages', pages);
+              if (typeof pages !== 'undefined') params.set('pages', pages.toString());
             }
-            contactBtnLink.href = '/schedule?' + params.toString();
+            (contactBtnLink as HTMLAnchorElement).href = '/schedule?' + params.toString();
           });
         }
         if (contactBtn) {
@@ -420,10 +403,6 @@ import '../styles/global.css';
           });
         }
       });
-
-  // (Removed duplicate DOMContentLoaded for updateResult)
-
-      // Contact button just links to /contact, no dialog logic needed
     </script>
   </main>
   <Footer />
